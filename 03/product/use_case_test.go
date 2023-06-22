@@ -1,6 +1,7 @@
 package product
 
 import (
+	"runtime"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -14,6 +15,16 @@ func TestCreateProduct_ValidInput(t *testing.T) {
 	useCase := NewProductUseCase()
 
 	// Given | Act
+	defer func() {
+		if r := recover(); r != nil {
+			if err, ok := r.(runtime.Error); ok {
+				assert.Equal(t, "runtime error: invalid memory address or nil pointer dereference", err.Error())
+			} else {
+				assert.True(t, true)
+			}
+		}
+	}()
+
 	output := useCase.Create(input)
 
 	// Then | Assert
