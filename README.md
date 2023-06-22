@@ -1,4 +1,6 @@
-## Trilha
+## Indice
+
+Desenvolvimento orientado a testes (TDD) com Casos de uso (UseCase - Clean Architecture) bem definidos.
 
 01. Input basico e UseCase basico retornando true
 02. Input com Validação
@@ -16,3 +18,25 @@
     - Fazemos uma introdução sobre Notification Pattern: Na primeira requisição o usuário precisa saber todas as falhas que ocorreram.
 07. Agregamos Notification Pattern com Output do tipo []errors
 08. Agregamos Notification Pattern com Output do tipo struct
+
+
+## Índice (ES)
+
+Desarrollo orientado a pruebas (TDD) con Casos de uso (UseCase - Clean Architecture) bien definidos.
+
+01. Input básica y UseCase básico que devuelve true
+02. Input con validación
+03. Agrega Entidad e Interface del Repositorio.
+    - Acoplamiento, inyección de dependencia e inversión de control.
+    - Aquí dará error de referencia porque no tenemos una implementación del repositorio.
+04. Agregamos un Repositorio en Memoria (mock)
+    - Tendremos error de referencia circular entre el archivo de prueba y el archivo de mock. Necesario crear paquete para archivo de prueba.
+05. Agregamos Validación de Entidad. Aquí podemos hablar sobre validación de entidad y validación de input
+    - ¿Por qué no validamos solo la entidad?
+        - Porque necesitamos proporcionar comentarios al usuario sobre sus datos de entrada (Esto abrirá el concepto de Notification Pattern)
+        - Porque la validación de entidad puede implicar reglas más complejas que la validación de entrada.
+        - Fail Fast
+06. Agregamos propiedad Price en la Entidad
+    - Hacemos una introducción sobre Notification Pattern: En la primera solicitud, el usuario necesita saber todas las fallas que ocurrieron.
+07. Agregamos Notification Pattern con Output del tipo []errors
+08. Agregamos Notification Pattern con Output del tipo struct
