@@ -1,15 +1,16 @@
 package product
 
 import (
+	"go-tdd-clean/10/domain/product"
 	"go-tdd-clean/10/shared"
 	"log"
 )
 
 type ProductUseCase struct {
-	Repository IProductRepository
+	Repository product.IProductRepository
 }
 
-func NewProductUseCase(repository IProductRepository) *ProductUseCase {
+func NewProductUseCase(repository product.IProductRepository) *ProductUseCase {
 	return &ProductUseCase{
 		Repository: repository,
 	}
