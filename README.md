@@ -18,6 +18,7 @@ Desenvolvimento orientado a testes (TDD) com Casos de uso (UseCase - Clean Archi
     - Fazemos uma introdução sobre Notification Pattern: Na primeira requisição o usuário precisa saber todas as falhas que ocorreram.
 07. Agregamos Notification Pattern com Output do tipo []errors
 08. Agregamos Notification Pattern com Output do tipo struct
+    - Encapsulamento: usar apenas codigos de domínio válidos
 09. Piramide de testes: Testes de unidade e testes de fluxo de caso de uso
 10. Organização para test coverage
     go test ./... -coverprofile=coverage.out
@@ -44,6 +45,7 @@ Desarrollo orientado a pruebas (TDD) con Casos de uso (UseCase - Clean Architect
     - Hacemos una introducción sobre Notification Pattern: En la primera solicitud, el usuario necesita saber todas las fallas que ocurrieron.
 07. Agregamos Notification Pattern con Output del tipo []errors
 08. Agregamos Notification Pattern con Output del tipo struct
+    - Encapsulamiento: usar solo códigos de dominio válidos
 09. Pirámide de pruebas: Pruebas de unidad y pruebas de flujo de caso de uso
 10. Organización para test coverage
     go test ./... -coverprofile=coverage.out
