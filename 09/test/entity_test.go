@@ -24,7 +24,6 @@ func TestCreateProduct_Success(t *testing.T) {
 	assert.NotNil(t, entity.ID)
 	assert.NotEmpty(t, entity.ID)
 	assert.NotNil(t, entity.CreatedAt)
-	assert.NotNil(t, entity.CreatedAt)
 }
 
 func TestCreateProduct_Invalid_Name(t *testing.T) {

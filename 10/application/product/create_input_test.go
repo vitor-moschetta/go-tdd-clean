@@ -14,10 +14,10 @@ func TestCreateInput(t *testing.T) {
 	}
 
 	// Given | Act
-	errrs := input.Validate()
+	errs := input.Validate()
 
 	// Then | Assert
-	assert.Equal(t, 0, len(errrs))
+	assert.Equal(t, 0, len(errs))
 }
 
 func TestCreateInput_Invalid_Name(t *testing.T) {
@@ -28,11 +28,11 @@ func TestCreateInput_Invalid_Name(t *testing.T) {
 	}
 
 	// Given | Act
-	errrs := input.Validate()
+	errs := input.Validate()
 
 	// Then | Assert
-	assert.Equal(t, 1, len(errrs))
-	assert.Equal(t, "name is required", errrs[0])
+	assert.Equal(t, 1, len(errs))
+	assert.Equal(t, "name is required", errs[0])
 }
 
 func TestCreateInput_Invalid_Price(t *testing.T) {
@@ -43,11 +43,11 @@ func TestCreateInput_Invalid_Price(t *testing.T) {
 	}
 
 	// Given | Act
-	errrs := input.Validate()
+	errs := input.Validate()
 
 	// Then | Assert
-	assert.Equal(t, 1, len(errrs))
-	assert.Equal(t, "price must be greater than 0", errrs[0])
+	assert.Equal(t, 1, len(errs))
+	assert.Equal(t, "price must be greater than 0", errs[0])
 }
 
 func TestCreateInput_Invalid_Name_And_Price(t *testing.T) {
@@ -58,10 +58,10 @@ func TestCreateInput_Invalid_Name_And_Price(t *testing.T) {
 	}
 
 	// Given | Act
-	errrs := input.Validate()
+	errs := input.Validate()
 
 	// Then | Assert
-	assert.Equal(t, 2, len(errrs))
-	assert.Equal(t, "name is required", errrs[0])
-	assert.Equal(t, "price must be greater than 0", errrs[1])
+	assert.Equal(t, 2, len(errs))
+	assert.Equal(t, "name is required", errs[0])
+	assert.Equal(t, "price must be greater than 0", errs[1])
 }

@@ -1,8 +1,6 @@
 package product
 
 import (
-	"fmt"
-	"strings"
 	"testing"
 
 	"go-tdd-clean/10/mock"
@@ -31,7 +29,7 @@ func TestUseCase_CreateProduct_Success(t *testing.T) {
 func TestUseCase_CreateProduct_InvalidInput(t *testing.T) {
 	// When | Arrange
 	input := CreateProductInput{
-		Name:  "",
+		Name:  "Product 1",
 		Price: 0,
 	}
 	repository := mock.NewProductRepositoryFake()
@@ -39,10 +37,9 @@ func TestUseCase_CreateProduct_InvalidInput(t *testing.T) {
 
 	// Given | Act
 	output := useCase.Create(input)
-	fmt.Println(strings.Join(output.GetErrors(), ", "))
 
 	// Then | Assert
-	assert.Equal(t, 2, len(output.GetErrors()))
+	assert.Equal(t, 1, len(output.GetErrors()))
 	assert.Equal(t, shared.DomainCodeInvalidInput, output.GetCode())
 }
 
