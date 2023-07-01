@@ -5,16 +5,16 @@ import (
 )
 
 type ProductRepositoryFake struct {
-	Storage []product.Product
+	storage []product.Product
 }
 
 func NewProductRepositoryFake() *ProductRepositoryFake {
 	return &ProductRepositoryFake{
-		Storage: []product.Product{},
+		storage: []product.Product{},
 	}
 }
 
 func (r *ProductRepositoryFake) Save(p product.Product) error {
-	r.Storage = append(r.Storage, p)
+	r.storage = append(r.storage, p)
 	return nil
 }
