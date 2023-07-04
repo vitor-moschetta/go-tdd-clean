@@ -1,8 +1,8 @@
 package product
 
 import (
-	"go-tdd-clean/10/domain/product"
-	"go-tdd-clean/10/shared"
+	"go-tdd-clean/11/domain/product"
+	"go-tdd-clean/11/shared"
 	"log"
 )
 
@@ -44,5 +44,26 @@ func (c *ProductUseCase) Create(input CreateProductInput) (output shared.Output)
 
 	// Return result
 	output.SetOk()
+	return
+}
+
+func (c *ProductUseCase) Query(input QueryProductInput) (output shared.Output) {
+	// Validate input (fail fast)
+	errs := input.Validate()
+	if errs != nil {
+		output.SetErrors(shared.DomainCodeInvalidInput, errs)
+		return
+	}
+
+	// Query entities
+	entities, err := c.Repository.Query(input.From, input.To)
+	if err != nil {
+		log.Println(err)
+		output.SetError(shared.DomainCodeInternalError, "Internal error")
+		return
+	}
+
+	// Return result
+	output.SetOkWithData(entities)
 	return
 }

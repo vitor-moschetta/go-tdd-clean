@@ -14,6 +14,7 @@ const (
 type Output struct {
 	errors []string
 	code   DomainCode
+	data   any
 }
 
 func (r *Output) SetError(code DomainCode, err string) {
@@ -28,6 +29,11 @@ func (r *Output) SetErrors(code DomainCode, errs []string) {
 
 func (r *Output) SetOk() {
 	r.code = DomainCodeSuccess
+}
+
+func (r *Output) SetOkWithData(data any) {
+	r.code = DomainCodeSuccess
+	r.data = data
 }
 
 func (r *Output) HasError() bool {
@@ -47,6 +53,10 @@ func (r *Output) setCode(code DomainCode) {
 		panic("invalid domain code")
 	}
 	r.code = code
+}
+
+func (r *Output) GetData() any {
+	return r.data
 }
 
 func isValidDomainCode(code DomainCode) bool {
