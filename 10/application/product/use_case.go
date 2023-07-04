@@ -46,3 +46,24 @@ func (c *ProductUseCase) Create(input CreateProductInput) (output shared.Output)
 	output.SetOk()
 	return
 }
+
+func (c *ProductUseCase) Query(input QueryProductInput) (output shared.Output) {
+	// Validate input (fail fast)
+	errs := input.Validate()
+	if errs != nil {
+		output.SetErrors(shared.DomainCodeInvalidInput, errs)
+		return
+	}
+
+	// Query entities
+	entities, err := c.Repository.Query(input.From, input.To)
+	if err != nil {
+		log.Println(err)
+		output.SetError(shared.DomainCodeInternalError, "Internal error")
+		return
+	}
+
+	// Return result
+	output.SetOkWithData(entities)
+	return
+}
