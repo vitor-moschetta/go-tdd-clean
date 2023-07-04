@@ -24,6 +24,7 @@ Desenvolvimento orientado a testes (TDD) com Casos de uso (UseCase - Clean Archi
     go test ./... -coverprofile=coverage.out
     go tool cover -html=coverage.out
 11. Adiciona QueryInput para buscar produtos por intervalo de data de cadastro
+12. Adiciona Infraestrutura Web (API REST)
 
 ## Índice (ES)
 
@@ -51,3 +52,4 @@ Desarrollo orientado a pruebas (TDD) con Casos de uso (UseCase - Clean Architect
     go test ./... -coverprofile=coverage.out
     go tool cover -html=coverage.out
 11. Agrega QueryInput para buscar productos por intervalo de fecha de registro
+12. Agrega Infraestructura Web (API REST)
