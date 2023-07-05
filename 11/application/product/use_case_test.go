@@ -2,7 +2,6 @@ package product
 
 import (
 	"testing"
-	"time"
 
 	"go-tdd-clean/11/domain/product"
 	"go-tdd-clean/11/mock"
@@ -81,21 +80,57 @@ func TestCreateProduct_InternalError(t *testing.T) {
 	assert.Equal(t, "Internal error", output.GetErrors()[0])
 }
 
-func TestUseCase_QueryProduct_Success(t *testing.T) {
+func TestUseCase_QueryProductMinMaxPrice_Success(t *testing.T) {
 	// When | Arrange
-	input := QueryProductInput{
-		From: string(time.Now().AddDate(0, 0, -1).Format("2006-01-02")),
-		To:   string(time.Now().AddDate(0, 0, 1).Format("2006-01-02")),
+	input := QueryProductMinMaxPrice{
+		MinPrice: 0,
+		MaxPrice: 201,
 	}
 	repository := mock.NewProductRepositoryFake()
 	repository.Seed()
 	useCase := NewProductUseCase(repository)
 
 	// Given | Act
-	output := useCase.Query(input)
+	output := useCase.QueryMinMaxPrice(input)
 
 	// Then | Assert
 	assert.Equal(t, 0, len(output.GetErrors()))
 	assert.Equal(t, shared.DomainCodeSuccess, output.GetCode())
 	assert.Equal(t, 2, len(output.GetData().([]product.Product)))
+}
+
+func TestUseCase_QueryProductMinMaxPrice_InvalidInput(t *testing.T) {
+	// When | Arrange
+	input := QueryProductMinMaxPrice{
+		MinPrice: -1,
+		MaxPrice: 0,
+	}
+	repository := mock.NewProductRepositoryFake()
+	repository.Seed()
+	useCase := NewProductUseCase(repository)
+
+	// Given | Act
+	output := useCase.QueryMinMaxPrice(input)
+
+	// Then | Assert
+	assert.Equal(t, 1, len(output.GetErrors()))
+	assert.Equal(t, shared.DomainCodeInvalidInput, output.GetCode())
+}
+
+func TestUseCase_QueryProductMinMaxPrice_InvalidInput2(t *testing.T) {
+	// When | Arrange
+	input := QueryProductMinMaxPrice{
+		MinPrice: 1,
+		MaxPrice: 0,
+	}
+	repository := mock.NewProductRepositoryFake()
+	repository.Seed()
+	useCase := NewProductUseCase(repository)
+
+	// Given | Act
+	output := useCase.QueryMinMaxPrice(input)
+
+	// Then | Assert
+	assert.Equal(t, 1, len(output.GetErrors()))
+	assert.Equal(t, shared.DomainCodeInvalidInput, output.GetCode())
 }

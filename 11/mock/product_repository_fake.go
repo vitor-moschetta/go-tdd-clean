@@ -25,12 +25,12 @@ func (r *ProductRepositoryFake) Save(p product.Product) error {
 	return nil
 }
 
-func (r *ProductRepositoryFake) Query(from string, to string) (products []product.Product, err error) {
+func (r *ProductRepositoryFake) QueryMinMaxPrice(min float64, max float64) (products []product.Product, err error) {
 	if r.err != nil {
 		return nil, r.err
 	}
 	for _, item := range r.storage {
-		if item.CreatedAt >= from && item.CreatedAt <= to {
+		if item.Price >= min && item.Price <= max {
 			products = append(products, item)
 		}
 	}
