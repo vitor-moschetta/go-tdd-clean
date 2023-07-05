@@ -1,18 +1,18 @@
 package product
 
 type QueryProductMinMaxPrice struct {
-	Min float64
-	Max float64
+	MinPrice float64
+	MaxPrice float64
 }
 
 func (c *QueryProductMinMaxPrice) Validate() (errs []string) {
-	if c.Min < 0 {
+	if c.MinPrice < 0 {
 		errs = append(errs, "min is negative")
 	}
-	if c.Max < 0 {
+	if c.MaxPrice < 0 {
 		errs = append(errs, "max is negative")
 	}
-	if c.Min > c.Max {
+	if c.MinPrice > c.MaxPrice {
 		errs = append(errs, "min is greater than max")
 	}
 	return

@@ -11,5 +11,5 @@ go run 12/main.go
 ## Sample Request
     
 ```bash
-curl -X GET "http://localhost:8080/api/v1/products?from=2021-01-01&to=2023-08-01" -H "accept: application/json"
+curl -X GET "http://localhost:8080/api/v1/products?min_price=0&max_price=200" -H "accept: application/json"
 ```

@@ -24,8 +24,6 @@ func Start() {
 	router.Use(middlewares.AcceptJSON)
 
 	router.HandleFunc("/api/v1/products", productController.Post).Methods(http.MethodPost)
-
-	router.HandleFunc("/api/v1/products", productController.GetFromToDate).Methods(http.MethodGet)
 	router.HandleFunc("/api/v1/products", productController.GetMinMaxPrice).Methods(http.MethodGet)
 
 	port := "8080"

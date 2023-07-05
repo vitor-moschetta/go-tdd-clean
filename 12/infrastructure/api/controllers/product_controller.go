@@ -37,21 +37,6 @@ func (c *ProductController) Post(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(response)
 }
 
-func (c *ProductController) GetFromToDate(w http.ResponseWriter, r *http.Request) {
-	var response responses.Response
-	var query productApplication.QueryProductFromToDate
-
-	queryParams := r.URL.Query()
-
-	query.From = queryParams.Get("from")
-	query.To = queryParams.Get("to")
-
-	output := c.UseCase.QueryFromToDate(query)
-	response = responses.OutputToResponse(output)
-	BuildHttpStatusCode(output, r.Method, w)
-	json.NewEncoder(w).Encode(response)
-}
-
 func (c *ProductController) GetMinMaxPrice(w http.ResponseWriter, r *http.Request) {
 	var response responses.Response
 	var query productApplication.QueryProductMinMaxPrice
@@ -59,14 +44,14 @@ func (c *ProductController) GetMinMaxPrice(w http.ResponseWriter, r *http.Reques
 
 	queryParams := r.URL.Query()
 
-	query.Min, err = strconv.ParseFloat(queryParams.Get("min"), 64)
+	query.MinPrice, err = strconv.ParseFloat(queryParams.Get("min_price"), 64)
 	if err != nil {
-		query.Min = 0
+		query.MinPrice = 0
 	}
 
-	query.Max, err = strconv.ParseFloat(queryParams.Get("max"), 64)
+	query.MaxPrice, err = strconv.ParseFloat(queryParams.Get("max_price"), 64)
 	if err != nil {
-		query.Max = 0
+		query.MaxPrice = 0
 	}
 
 	output := c.UseCase.QueryMinMaxPrice(query)
