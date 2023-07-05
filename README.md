@@ -26,6 +26,14 @@ Desenvolvimento orientado a testes (TDD) com Casos de uso (UseCase - Clean Archi
 11. Adiciona QueryInput para buscar produtos por intervalo de preço
 12. Adiciona Infraestrutura Web (API REST)
 
+## Postman
+O projeto 12 possui infraestrutura web (API REST) e pode ser testado com o Postman. A collection a ser importada está na pasta `postman`.
+
+```bash
+curl -X GET "http://localhost:8080/api/v1/products?min_price=0&max_price=200" -H "accept: application/json"
+```
+
+
 ## Índice (ES)
 
 Desarrollo orientado a pruebas (TDD) con Casos de uso (UseCase - Clean Architecture) bien definidos.
@@ -53,3 +61,10 @@ Desarrollo orientado a pruebas (TDD) con Casos de uso (UseCase - Clean Architect
     go tool cover -html=coverage.out
 11. Agrega QueryInput para buscar productos por intervalo de precio
 12. Agrega Infraestructura Web (API REST)
+
+## Postman (ES)
+El proyecto 12 tiene infraestructura web (API REST) y se puede probar con Postman. La colección a importar está en la carpeta `postman`.
+
+```bash
+curl -X GET "http://localhost:8080/api/v1/products?min_price=0&max_price=200" -H "accept: application/json"
+```

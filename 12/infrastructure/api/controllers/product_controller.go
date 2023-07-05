@@ -7,6 +7,8 @@ import (
 	"go-tdd-clean/12/infrastructure/api/responses"
 	"net/http"
 	"strconv"
+
+	"github.com/mercadolibre/fury_go-core/pkg/web"
 )
 
 type ProductController struct {
@@ -19,28 +21,24 @@ func NewProductController(useCase *productApplication.ProductUseCase) *ProductCo
 	}
 }
 
-func (c *ProductController) Post(w http.ResponseWriter, r *http.Request) {
+func (c *ProductController) Post(w http.ResponseWriter, r *http.Request) (err error) {
 	var response responses.Response
 	var request requests.CreateProductRequest
 
-	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		response = responses.ItemToResponse(request, "Bad request")
-		json.NewEncoder(w).Encode(response)
-		return
+	if err = json.NewDecoder(r.Body).Decode(&request); err != nil {
+		return web.NewError(http.StatusBadRequest, "invalid request body")
 	}
 
 	input := productApplication.NewCreateProductInput(request.Name, request.Price)
 	output := c.UseCase.Create(input)
 	response = responses.OutputToResponse(output)
-	BuildHttpStatusCode(output, r.Method, w)
-	json.NewEncoder(w).Encode(response)
+
+	return web.EncodeJSON(w, response, BuildHttpStatusCode(output, r.Method))
 }
 
-func (c *ProductController) GetMinMaxPrice(w http.ResponseWriter, r *http.Request) {
+func (c *ProductController) GetMinMaxPrice(w http.ResponseWriter, r *http.Request) (err error) {
 	var response responses.Response
 	var query productApplication.QueryProductMinMaxPrice
-	var err error
 
 	queryParams := r.URL.Query()
 
@@ -56,6 +54,6 @@ func (c *ProductController) GetMinMaxPrice(w http.ResponseWriter, r *http.Reques
 
 	output := c.UseCase.QueryMinMaxPrice(query)
 	response = responses.OutputToResponse(output)
-	BuildHttpStatusCode(output, r.Method, w)
-	json.NewEncoder(w).Encode(response)
+
+	return web.EncodeJSON(w, response, BuildHttpStatusCode(output, r.Method))
 }

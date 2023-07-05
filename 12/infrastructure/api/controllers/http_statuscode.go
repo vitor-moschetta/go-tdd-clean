@@ -14,9 +14,9 @@ const (
 	VerbTypeDelete VerbType = 4
 )
 
-func BuildHttpStatusCode(output shared.Output, verb string, w http.ResponseWriter) {
+func BuildHttpStatusCode(output shared.Output, verb string) int {
 	domainCode := output.GetCode()
-	w.WriteHeader(domainCodeToHttpStatusCode(domainCode, verb))
+	return domainCodeToHttpStatusCode(domainCode, verb)
 }
 
 func domainCodeToHttpStatusCode(domainCode shared.DomainCode, verb string) int {
