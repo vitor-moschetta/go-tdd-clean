@@ -56,7 +56,11 @@ func (c *ProductUseCase) QueryMinMaxPrice(input QueryProductMinMaxPrice) (output
 	}
 
 	// Query entities
-	entities, err := c.Repository.QueryMinMaxPrice(input.MinPrice, input.MaxPrice)
+	fn := func(p product.Product) bool {
+		return p.Price >= input.MinPrice && p.Price <= input.MaxPrice
+	}
+
+	entities, err := c.Repository.Query(fn)
 	if err != nil {
 		log.Println(err)
 		output.SetError(shared.DomainCodeInternalError, "Internal error")

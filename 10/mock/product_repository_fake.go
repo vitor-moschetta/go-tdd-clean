@@ -24,18 +24,6 @@ func (r *ProductRepositoryFake) Save(p product.Product) error {
 	return nil
 }
 
-func (r *ProductRepositoryFake) Query(from string, to string) (products []product.Product, err error) {
-	if r.err != nil {
-		return nil, r.err
-	}
-	for _, item := range r.storage {
-		if item.CreatedAt >= from && item.CreatedAt <= to {
-			products = append(products, item)
-		}
-	}
-	return
-}
-
 func (r *ProductRepositoryFake) SetError() {
 	r.err = errors.New("error")
 }

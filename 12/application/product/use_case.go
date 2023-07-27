@@ -56,32 +56,7 @@ func (c *ProductUseCase) QueryMinMaxPrice(input QueryProductMinMaxPrice) (output
 	}
 
 	// Query entities
-	entities, err := c.Repository.QueryMinMaxPrice(input.MinPrice, input.MaxPrice)
-	if err != nil {
-		log.Println(err)
-		output.SetError(shared.DomainCodeInternalError, "Internal error")
-		return
-	}
-
-	// Return result
-	output.SetOkWithData(entities)
-	return
-}
-
-func (c *ProductUseCase) QueryMinMaxPrice2(input QueryProductMinMaxPrice) (output shared.Output) {
-	// Validate input (fail fast)
-	errs := input.Validate()
-	if errs != nil {
-		output.SetErrors(shared.DomainCodeInvalidInput, errs)
-		return
-	}
-
-	fn := func(p product.Product) bool {
-		return p.Price >= input.MinPrice && p.Price <= input.MaxPrice
-	}
-
-	// Query entities
-	entities, err := c.Repository.Query(fn)
+	entities, err := c.Repository.Query(input.QueryFn())
 	if err != nil {
 		log.Println(err)
 		output.SetError(shared.DomainCodeInternalError, "Internal error")

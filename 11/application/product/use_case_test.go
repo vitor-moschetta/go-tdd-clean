@@ -134,3 +134,22 @@ func TestUseCase_QueryProductMinMaxPrice_InvalidInput2(t *testing.T) {
 	assert.Equal(t, 1, len(output.GetErrors()))
 	assert.Equal(t, shared.DomainCodeInvalidInput, output.GetCode())
 }
+
+func TestUseCase_QueryProductMinMaxPrice_InternalError(t *testing.T) {
+	// When | Arrange
+	input := QueryProductMinMaxPrice{
+		MinPrice: 0,
+		MaxPrice: 201,
+	}
+	repository := mock.NewProductRepositoryFake()
+	repository.SetError()
+	useCase := NewProductUseCase(repository)
+
+	// Given | Act
+	output := useCase.QueryMinMaxPrice(input)
+
+	// Then | Assert
+	assert.Equal(t, 1, len(output.GetErrors()))
+	assert.Equal(t, shared.DomainCodeInternalError, output.GetCode())
+	assert.Equal(t, "Internal error", output.GetErrors()[0])
+}
