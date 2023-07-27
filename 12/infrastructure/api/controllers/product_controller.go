@@ -52,7 +52,7 @@ func (c *ProductController) GetMinMaxPrice(w http.ResponseWriter, r *http.Reques
 		query.MaxPrice = 0
 	}
 
-	output := c.UseCase.QueryMinMaxPrice(query)
+	output := c.UseCase.QueryMinMaxPrice2(query)
 	response = responses.OutputToResponse(output)
 
 	return web.EncodeJSON(w, response, BuildHttpStatusCode(output, r.Method))

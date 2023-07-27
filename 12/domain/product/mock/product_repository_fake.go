@@ -37,6 +37,18 @@ func (r *ProductRepositoryFake) QueryMinMaxPrice(min float64, max float64) (prod
 	return
 }
 
+func (r *ProductRepositoryFake) Query(fn func(product.Product) bool) (products []product.Product, err error) {
+	if r.err != nil {
+		return nil, r.err
+	}
+	for _, item := range r.storage {
+		if fn(item) {
+			products = append(products, item)
+		}
+	}
+	return
+}
+
 func (r *ProductRepositoryFake) SetError() {
 	r.err = errors.New("error")
 }

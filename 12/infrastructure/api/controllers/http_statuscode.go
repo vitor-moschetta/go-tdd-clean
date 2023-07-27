@@ -3,6 +3,7 @@ package controllers
 import (
 	"go-tdd-clean/12/shared"
 	"net/http"
+	"reflect"
 )
 
 type VerbType int
@@ -16,14 +17,17 @@ const (
 
 func BuildHttpStatusCode(output shared.Output, verb string) int {
 	domainCode := output.GetCode()
-	return domainCodeToHttpStatusCode(domainCode, verb)
+	return domainCodeToHttpStatusCode(output, domainCode, verb)
 }
 
-func domainCodeToHttpStatusCode(domainCode shared.DomainCode, verb string) int {
+func domainCodeToHttpStatusCode(output shared.Output, domainCode shared.DomainCode, verb string) int {
 	switch domainCode {
 	case shared.DomainCodeSuccess:
 		if verb == http.MethodPost {
 			return http.StatusCreated
+		}
+		if verb == http.MethodGet && (output.GetData() == nil || reflect.ValueOf(output.GetData()).IsNil()) {
+			return http.StatusNoContent
 		}
 		return http.StatusOK
 	case shared.DomainCodeInvalidInput:
