@@ -60,9 +60,32 @@ func (s *ProductControllerTest) TestGetMinMaxPrice_Ok() {
 	// Arrange
 	app, err := fury.NewWebApplication()
 	s.Nil(err)
-	app.Get("/api/v1/products", s.controller.GetMinMaxPrice)
+	app.Get("/api/v1/products", s.controller.Get)
 
 	req, err := http.NewRequest(http.MethodGet, "/api/v1/products?min_price=0&max_price=200", nil)
+	s.Nil(err)
+
+	recorder := httptest.NewRecorder()
+
+	// Act
+	app.ServeHTTP(recorder, req)
+
+	// Assert
+	var response responses.Response
+	err = json.NewDecoder(recorder.Body).Decode(&response)
+	s.Nil(err)
+
+	s.Equal(http.StatusOK, recorder.Code)
+	s.Equal(0, len(response.Errors))
+}
+
+func (s *ProductControllerTest) TestGetAll_Ok() {
+	// Arrange
+	app, err := fury.NewWebApplication()
+	s.Nil(err)
+	app.Get("/api/v1/products", s.controller.Get)
+
+	req, err := http.NewRequest(http.MethodGet, "/api/v1/products", nil)
 	s.Nil(err)
 
 	recorder := httptest.NewRecorder()

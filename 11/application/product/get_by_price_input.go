@@ -1,11 +1,11 @@
 package product
 
-type QueryProductMinMaxPrice struct {
+type GetProductByMinMaxPriceInput struct {
 	MinPrice float64
 	MaxPrice float64
 }
 
-func (c *QueryProductMinMaxPrice) Validate() (errs []string) {
+func (c *GetProductByMinMaxPriceInput) Validate() (errs []string) {
 	if c.MinPrice < 0 {
 		errs = append(errs, "min is negative")
 	}

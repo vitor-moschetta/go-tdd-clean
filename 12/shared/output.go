@@ -64,6 +64,6 @@ func isValidDomainCode(code DomainCode) bool {
 	return code == DomainCodeInvalidInput ||
 		code == DomainCodeInvalidEntity ||
 		code == DomainCodeInternalError ||
-		code == DomainCodeSuccess
-
+		code == DomainCodeSuccess ||
+		code == DomainCodeNotFound
 }

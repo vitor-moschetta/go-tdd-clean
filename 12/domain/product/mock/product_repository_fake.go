@@ -37,6 +37,13 @@ func (r *ProductRepositoryFake) Query(fn func(product.Product) bool) (products [
 	return
 }
 
+func (r *ProductRepositoryFake) GetAll() (products []product.Product, err error) {
+	if r.err != nil {
+		return nil, r.err
+	}
+	return r.storage, nil
+}
+
 func (r *ProductRepositoryFake) SetError() {
 	r.err = errors.New("error")
 }

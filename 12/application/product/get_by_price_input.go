@@ -2,12 +2,12 @@ package product
 
 import "go-tdd-clean/12/domain/product"
 
-type QueryProductMinMaxPrice struct {
+type GetProductByMinMaxPriceInput struct {
 	MinPrice float64
 	MaxPrice float64
 }
 
-func (c *QueryProductMinMaxPrice) Validate() (errs []string) {
+func (c *GetProductByMinMaxPriceInput) Validate() (errs []string) {
 	if c.MinPrice < 0 {
 		errs = append(errs, "min is negative")
 	}
@@ -20,7 +20,7 @@ func (c *QueryProductMinMaxPrice) Validate() (errs []string) {
 	return
 }
 
-func (c *QueryProductMinMaxPrice) QueryFn() func(product.Product) bool {
+func (c *GetProductByMinMaxPriceInput) BuildQuery() func(product.Product) bool {
 	return func(p product.Product) bool {
 		return p.Price >= c.MinPrice && p.Price <= c.MaxPrice
 	}

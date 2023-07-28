@@ -47,7 +47,7 @@ func Run() error {
 
 	v1 := app.Router.Group("/api/v1")
 	v1.Post("/products", productController.Post)
-	v1.Get("/products", productController.GetMinMaxPrice)
+	v1.Get("/products", productController.Get)
 
 	return app.Run()
 }

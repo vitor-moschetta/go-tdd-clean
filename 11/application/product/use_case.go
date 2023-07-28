@@ -47,7 +47,7 @@ func (c *ProductUseCase) Create(input CreateProductInput) (output shared.Output)
 	return
 }
 
-func (c *ProductUseCase) QueryMinMaxPrice(input QueryProductMinMaxPrice) (output shared.Output) {
+func (c *ProductUseCase) GetByMinMaxPrice(input GetProductByMinMaxPriceInput) (output shared.Output) {
 	// Validate input (fail fast)
 	errs := input.Validate()
 	if errs != nil {

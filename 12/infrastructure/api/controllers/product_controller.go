@@ -36,24 +36,29 @@ func (c *ProductController) Post(w http.ResponseWriter, r *http.Request) (err er
 	return web.EncodeJSON(w, response, BuildHttpStatusCode(output, r.Method))
 }
 
-func (c *ProductController) GetMinMaxPrice(w http.ResponseWriter, r *http.Request) (err error) {
-	var response responses.Response
-	var query productApplication.QueryProductMinMaxPrice
-
+func (c *ProductController) Get(w http.ResponseWriter, r *http.Request) (err error) {
 	queryParams := r.URL.Query()
 
-	query.MinPrice, err = strconv.ParseFloat(queryParams.Get("min_price"), 64)
+	var input productApplication.GetProductByMinMaxPriceInput
+
+	input.MinPrice, err = strconv.ParseFloat(queryParams.Get("min_price"), 64)
 	if err != nil {
-		query.MinPrice = 0
+		input.MinPrice = 0
 	}
 
-	query.MaxPrice, err = strconv.ParseFloat(queryParams.Get("max_price"), 64)
+	input.MaxPrice, err = strconv.ParseFloat(queryParams.Get("max_price"), 64)
 	if err != nil {
-		query.MaxPrice = 0
+		input.MaxPrice = 0
 	}
 
-	output := c.UseCase.QueryMinMaxPrice(query)
-	response = responses.OutputToResponse(output)
+	if input.MinPrice == 0 && input.MaxPrice == 0 {
+		output := c.UseCase.GetAll()
+		response := responses.OutputToResponse(output)
+		return web.EncodeJSON(w, response, BuildHttpStatusCode(output, r.Method))
+	}
+
+	output := c.UseCase.GetByMinMaxPrice(input)
+	response := responses.OutputToResponse(output)
 
 	return web.EncodeJSON(w, response, BuildHttpStatusCode(output, r.Method))
 }
