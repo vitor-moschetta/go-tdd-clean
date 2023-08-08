@@ -3,7 +3,7 @@ package product
 import (
 	"testing"
 
-	"go-tdd-clean/10/mock"
+	"go-tdd-clean/10/product/domain/mock"
 	"go-tdd-clean/10/shared"
 
 	"github.com/stretchr/testify/assert"

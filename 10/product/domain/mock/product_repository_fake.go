@@ -2,7 +2,7 @@ package mock
 
 import (
 	"errors"
-	"go-tdd-clean/10/domain/product"
+	product "go-tdd-clean/10/product/domain"
 )
 
 type ProductRepositoryFake struct {

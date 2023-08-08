@@ -1,6 +1,6 @@
 package product
 
-import "go-tdd-clean/10/domain/product"
+import product "go-tdd-clean/10/product/domain"
 
 type CreateProductInput struct {
 	Name  string
