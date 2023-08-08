@@ -1,5 +1,7 @@
 package product
 
+import product "go-tdd-clean/09/product/domain"
+
 type CreateProductInput struct {
 	Name  string
 	Price float64
@@ -15,6 +17,6 @@ func (c *CreateProductInput) Validate() (errs []string) {
 	return errs
 }
 
-func (c *CreateProductInput) ToEntity() Product {
-	return NewProduct(c.Name, c.Price)
+func (c *CreateProductInput) ToEntity() product.Product {
+	return product.NewProduct(c.Name, c.Price)
 }

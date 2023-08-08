@@ -1,7 +1,6 @@
-package test
+package product
 
 import (
-	"go-tdd-clean/09/product"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -9,7 +8,7 @@ import (
 
 func TestCreateInput(t *testing.T) {
 	// When | Arrange
-	input := product.CreateProductInput{
+	input := CreateProductInput{
 		Name:  "Product 1",
 		Price: 100,
 	}
@@ -23,7 +22,7 @@ func TestCreateInput(t *testing.T) {
 
 func TestCreateInput_Invalid_Name(t *testing.T) {
 	// When | Arrange
-	input := product.CreateProductInput{
+	input := CreateProductInput{
 		Name:  "",
 		Price: 100,
 	}
@@ -38,7 +37,7 @@ func TestCreateInput_Invalid_Name(t *testing.T) {
 
 func TestCreateInput_Invalid_Price(t *testing.T) {
 	// When | Arrange
-	input := product.CreateProductInput{
+	input := CreateProductInput{
 		Name:  "Product 1",
 		Price: 0,
 	}
@@ -53,7 +52,7 @@ func TestCreateInput_Invalid_Price(t *testing.T) {
 
 func TestCreateInput_Invalid_Name_And_Price(t *testing.T) {
 	// When | Arrange
-	input := product.CreateProductInput{
+	input := CreateProductInput{
 		Name:  "",
 		Price: 0,
 	}

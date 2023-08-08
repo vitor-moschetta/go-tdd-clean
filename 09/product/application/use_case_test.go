@@ -1,10 +1,9 @@
-package test
+package product
 
 import (
 	"testing"
 
-	"go-tdd-clean/09/mock"
-	"go-tdd-clean/09/product"
+	"go-tdd-clean/09/product/domain/mock"
 	"go-tdd-clean/09/shared"
 
 	"github.com/stretchr/testify/assert"
@@ -12,12 +11,12 @@ import (
 
 func TestUseCase_CreateProduct_Success(t *testing.T) {
 	// When | Arrange
-	input := product.CreateProductInput{
+	input := CreateProductInput{
 		Name:  "Product 1",
 		Price: 0.01,
 	}
 	repository := mock.NewProductRepositoryFake()
-	useCase := product.NewProductUseCase(repository)
+	useCase := NewProductUseCase(repository)
 
 	// Given | Act
 	output := useCase.Create(input)
@@ -29,12 +28,12 @@ func TestUseCase_CreateProduct_Success(t *testing.T) {
 
 func TestUseCase_CreateProduct_InvalidInput(t *testing.T) {
 	// When | Arrange
-	input := product.CreateProductInput{
+	input := CreateProductInput{
 		Name:  "Product 1",
 		Price: 0,
 	}
 	repository := mock.NewProductRepositoryFake()
-	useCase := product.NewProductUseCase(repository)
+	useCase := NewProductUseCase(repository)
 
 	// Given | Act
 	output := useCase.Create(input)
@@ -46,12 +45,12 @@ func TestUseCase_CreateProduct_InvalidInput(t *testing.T) {
 
 func TestUseCase_CreateProduct_InvalidInput2(t *testing.T) {
 	// When | Arrange
-	input := product.CreateProductInput{
+	input := CreateProductInput{
 		Name:  "",
 		Price: 0,
 	}
 	repository := mock.NewProductRepositoryFake()
-	useCase := product.NewProductUseCase(repository)
+	useCase := NewProductUseCase(repository)
 
 	// Given | Act
 	output := useCase.Create(input)
@@ -63,13 +62,13 @@ func TestUseCase_CreateProduct_InvalidInput2(t *testing.T) {
 
 func TestCreateProduct_InternalError(t *testing.T) {
 	// When | Arrange
-	input := product.CreateProductInput{
+	input := CreateProductInput{
 		Name:  "Product 1",
 		Price: 100,
 	}
 	repository := mock.NewProductRepositoryFake()
 	repository.SetError()
-	useCase := product.NewProductUseCase(repository)
+	useCase := NewProductUseCase(repository)
 
 	// Given | Act
 	output := useCase.Create(input)

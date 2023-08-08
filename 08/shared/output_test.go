@@ -1,7 +1,6 @@
-package test
+package shared
 
 import (
-	"go-tdd-clean/08/shared"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -16,6 +15,6 @@ func TestOutput_SetInvalidDomainCode(t *testing.T) {
 		}
 	}()
 
-	output := shared.Output{}
+	output := Output{}
 	output.SetError(999, "error")
 }

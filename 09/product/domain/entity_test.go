@@ -1,7 +1,6 @@
-package test
+package product
 
 import (
-	"go-tdd-clean/09/product"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -11,7 +10,7 @@ func TestCreateProduct_Success(t *testing.T) {
 	// When | Arrange
 	name := "Product 1"
 	price := 0.01
-	entity := product.NewProduct(name, price)
+	entity := NewProduct(name, price)
 
 	// Given | Act
 	errs := entity.Validate()
@@ -30,7 +29,7 @@ func TestCreateProduct_Invalid_Name(t *testing.T) {
 	// When | Arrange
 	name := ""
 	price := 0.01
-	entity := product.NewProduct(name, price)
+	entity := NewProduct(name, price)
 
 	// Given | Act
 	errs := entity.Validate()
@@ -44,7 +43,7 @@ func TestCreateProduct_Invalid_Name2(t *testing.T) {
 	// When | Arrange
 	var name string
 	price := 0.01
-	entity := product.NewProduct(name, price)
+	entity := NewProduct(name, price)
 
 	// Given | Act
 	errs := entity.Validate()
@@ -58,7 +57,7 @@ func TestCreateProduct_Invalid_Price(t *testing.T) {
 	// When | Arrange
 	name := "Product 1"
 	price := 0.00
-	entity := product.NewProduct(name, price)
+	entity := NewProduct(name, price)
 
 	// Given | Act
 	errs := entity.Validate()
@@ -72,7 +71,7 @@ func TestCreateProduct_Invalid_Price2(t *testing.T) {
 	// When | Arrange
 	name := "Product 1"
 	var price float64
-	entity := product.NewProduct(name, price)
+	entity := NewProduct(name, price)
 
 	// Given | Act
 	errs := entity.Validate()
@@ -86,7 +85,7 @@ func TestCreateProduct_Invalid_Name_And_Price(t *testing.T) {
 	// When | Arrange
 	name := ""
 	price := 0.00
-	entity := product.NewProduct(name, price)
+	entity := NewProduct(name, price)
 
 	// Given | Act
 	errs := entity.Validate()
@@ -101,7 +100,7 @@ func TestCreateProduct_Invalid_Name_And_Price2(t *testing.T) {
 	// When | Arrange
 	var name string
 	var price float64
-	entity := product.NewProduct(name, price)
+	entity := NewProduct(name, price)
 
 	// Given | Act
 	errs := entity.Validate()

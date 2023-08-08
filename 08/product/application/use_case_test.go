@@ -1,12 +1,11 @@
-package test
+package product
 
 import (
 	"fmt"
 	"strings"
 	"testing"
 
-	"go-tdd-clean/08/mock"
-	"go-tdd-clean/08/product"
+	"go-tdd-clean/08/product/domain/mock"
 	"go-tdd-clean/08/shared"
 
 	"github.com/stretchr/testify/assert"
@@ -14,12 +13,12 @@ import (
 
 func TestCreateProduct_ValidInput(t *testing.T) {
 	// When | Arrange
-	input := product.CreateProductInput{
+	input := CreateProductInput{
 		Name:  "Product 1",
 		Price: 100,
 	}
 	repository := mock.NewProductRepositoryFake()
-	useCase := product.NewProductUseCase(repository)
+	useCase := NewProductUseCase(repository)
 
 	// Given | Act
 	output := useCase.Create(input)
@@ -31,12 +30,12 @@ func TestCreateProduct_ValidInput(t *testing.T) {
 
 func TestCreateProduct_InvalidInput_Name(t *testing.T) {
 	// When | Arrange
-	input := product.CreateProductInput{
+	input := CreateProductInput{
 		Name:  "",
 		Price: 100,
 	}
 	repository := mock.NewProductRepositoryFake()
-	useCase := product.NewProductUseCase(repository)
+	useCase := NewProductUseCase(repository)
 
 	// Given | Act
 	output := useCase.Create(input)
@@ -49,12 +48,12 @@ func TestCreateProduct_InvalidInput_Name(t *testing.T) {
 
 func TestCreateProduct_InvalidInput_Price(t *testing.T) {
 	// When | Arrange
-	input := product.CreateProductInput{
+	input := CreateProductInput{
 		Name:  "Product 1",
 		Price: 0,
 	}
 	repository := mock.NewProductRepositoryFake()
-	useCase := product.NewProductUseCase(repository)
+	useCase := NewProductUseCase(repository)
 
 	// Given | Act
 	output := useCase.Create(input)
@@ -67,12 +66,12 @@ func TestCreateProduct_InvalidInput_Price(t *testing.T) {
 
 func TestCreateProduct_InvalidInput_NameAndPrice(t *testing.T) {
 	// When | Arrange
-	input := product.CreateProductInput{
+	input := CreateProductInput{
 		Name:  "",
 		Price: 0,
 	}
 	repository := mock.NewProductRepositoryFake()
-	useCase := product.NewProductUseCase(repository)
+	useCase := NewProductUseCase(repository)
 
 	// Given | Act
 	output := useCase.Create(input)
@@ -87,13 +86,13 @@ func TestCreateProduct_InvalidInput_NameAndPrice(t *testing.T) {
 
 func TestCreateProduct_InternalError(t *testing.T) {
 	// When | Arrange
-	input := product.CreateProductInput{
+	input := CreateProductInput{
 		Name:  "Product 1",
 		Price: 100,
 	}
 	repository := mock.NewProductRepositoryFake()
 	repository.SetError()
-	useCase := product.NewProductUseCase(repository)
+	useCase := NewProductUseCase(repository)
 
 	// Given | Act
 	output := useCase.Create(input)
