@@ -1,21 +1,19 @@
-package test
+package product
 
 import (
+	"go-tdd-clean/04/product/domain/mock"
 	"testing"
-
-	"go-tdd-clean/04/mock"
-	"go-tdd-clean/04/product"
 
 	"github.com/stretchr/testify/assert"
 )
 
 func TestCreateProduct_ValidInput(t *testing.T) {
 	// When | Arrange
-	input := product.CreateProductInput{
+	input := CreateProductInput{
 		Name: "Product 1",
 	}
 	repository := mock.NewProductRepositoryFake()
-	useCase := product.NewProductUseCase(repository)
+	useCase := NewProductUseCase(repository)
 
 	// Given | Act
 	output := useCase.Create(input)
@@ -26,11 +24,11 @@ func TestCreateProduct_ValidInput(t *testing.T) {
 
 func TestCreateProduct_InvalidInput(t *testing.T) {
 	// When | Arrange
-	input := product.CreateProductInput{
+	input := CreateProductInput{
 		Name: "",
 	}
 	repository := mock.NewProductRepositoryFake()
-	useCase := product.NewProductUseCase(repository)
+	useCase := NewProductUseCase(repository)
 
 	// Given | Act
 	output := useCase.Create(input)
