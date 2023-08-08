@@ -1,7 +1,7 @@
 package product
 
 import (
-	"go-tdd-clean/11/domain/product"
+	product "go-tdd-clean/11/product/domain"
 	"go-tdd-clean/11/shared"
 	"log"
 )

@@ -2,7 +2,7 @@ package mock
 
 import (
 	"errors"
-	"go-tdd-clean/11/domain/product"
+	product "go-tdd-clean/11/product/domain"
 	"time"
 )
 
