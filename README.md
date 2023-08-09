@@ -29,14 +29,12 @@ Desenvolvimento orientado a testes (TDD) com Casos de uso (UseCase - Clean Archi
 07. Exportar Codigos de dominio
     - Como a camada de apresentação poderá mapear e informar corretamente os erros que ocorreram no dominio?    
         - R: Criamos um output customizado (struct) para o dominio , com seus próprios códigos de erro
+08. Agregar novo caso de uso
+    - QueryInput para buscar produtos por intervalo de preço
+    - Agrega query interface repository
+    - Agrega query repository mock
+    - Agrega seed de dados
 
-08. Agregamos Notification Pattern com Output do tipo struct
-    - Encapsulamento: usar apenas codigos de domínio válidos
-
-10. Organização para test coverage
-    go test ./... -coverprofile=coverage.out
-    go tool cover -html=coverage.out
-11. Adiciona QueryInput para buscar produtos por intervalo de preço
 12. Adicionar Entidade Category e relacionamento com Product
     - Mediator
     - Unit of Work
