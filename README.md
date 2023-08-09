@@ -8,6 +8,7 @@ Desenvolvimento orientado a testes (TDD) com Casos de uso (UseCase - Clean Archi
     - Acoplamento, injeção de dependencia e inversão de controle.
     - Erro por falta de implementação do repositorio.
 04. Agregamos um Repositorio em Memoria (mock)
+    - Separamos camadas de domain e application
 05. Agregamos Validação de Entidade. Aqui podemos falar sobre validação de entidade e validação de input
     - Porque não validamos somente a entidade?         
         - Porque precisamos fornecer feedback para o usuário sobre os seus dados de entrada (Isso dará abertura para entrarmos com o conceito de Notification Pattern)

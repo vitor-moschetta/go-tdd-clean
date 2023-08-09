@@ -15,24 +15,25 @@ func NewProductUseCase(repository product.IProductRepository) *ProductUseCase {
 	}
 }
 
-func (c *ProductUseCase) Create(input CreateProductInput) bool {
-	// Validate input
-	if !input.Validate() {
-		return false
+func (c *ProductUseCase) Create(input CreateProductInput) error {
+	// validate input
+	err := input.Validate()
+	if err != nil {
+		return err
 	}
 
-	// Create entity
+	// create entity
 	entity := product.Product{
 		Name: input.Name,
 	}
 
-	// Save entity to storage
-	err := c.Repository.Save(entity)
+	// save entity to storage
+	err = c.Repository.Save(entity)
 	if err != nil {
 		log.Println(err)
-		return false
+		return err
 	}
 
-	// Return result
-	return true
+	// return output
+	return nil
 }

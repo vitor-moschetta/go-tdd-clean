@@ -1,12 +1,14 @@
 package product
 
+import "errors"
+
 type CreateProductInput struct {
 	Name string
 }
 
-func (c *CreateProductInput) Validate() bool {
+func (c *CreateProductInput) Validate() error {
 	if c.Name == "" {
-		return false
+		return errors.New("name is required")
 	}
-	return true
+	return nil
 }
