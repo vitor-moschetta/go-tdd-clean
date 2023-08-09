@@ -2,11 +2,12 @@
 
 Desenvolvimento orientado a testes (TDD) com Casos de uso (UseCase - Clean Architecture) bem definidos.
 
-01. Input basico e UseCase basico retornando true
+01. Input basico e UseCase basico retornando error
 02. Input com Validação
 03. Agrega Entidade e Interface do Repositorio. 
-    - Acoplamento, injeção de dependencia e inversão de controle.     
-04. Agregamos um Repositorio em Memoria (mock)    
+    - Acoplamento, injeção de dependencia e inversão de controle.
+    - Erro por falta de implementação do repositorio.
+04. Agregamos um Repositorio em Memoria (mock)
 05. Agregamos Validação de Entidade. Aqui podemos falar sobre validação de entidade e validação de input
     - Porque não validamos somente a entidade?         
         - Porque precisamos fornecer feedback para o usuário sobre os seus dados de entrada (Isso dará abertura para entrarmos com o conceito de Notification Pattern)
@@ -22,7 +23,11 @@ Desenvolvimento orientado a testes (TDD) com Casos de uso (UseCase - Clean Archi
     go test ./... -coverprofile=coverage.out
     go tool cover -html=coverage.out
 11. Adiciona QueryInput para buscar produtos por intervalo de preço
-12. Adiciona Infraestrutura Web (API REST)
+12. Adicionar Entidade Category e relacionamento com Product
+    - Mediator
+    - Unit of Work
+    - Domain Events
+99. Adiciona Infraestrutura Web (API REST)
 
 ## Postman
 O projeto 12 possui infraestrutura web (API REST) e pode ser testado com o Postman. A collection a ser importada está na pasta `postman`.
