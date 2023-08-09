@@ -20,10 +20,12 @@ Desenvolvimento orientado a testes (TDD) com Casos de uso (UseCase - Clean Archi
 05. Validação de Entidade
     - Agregamos Data de Cadastro na Entidade
     - Agregamos validação de Entidade
-    - Movemos a criação e validação da entidade para seu próprio contexto (DDD, entidades anemicas vs entidades ricas)
+    - Movemos a criação e validação da entidade para seu próprio contexto (DDD, entidades anemicas vs entidades ricas, testes unitarios vs testes de fluxo, piramide de testes)
     - Porque ainda temos que validar o input do usuário? Não poderíamos apenas validar a entidade?
         - R: Porque a entidade pode conter regras internas, e o input é mais específico para a validação dos dados de entrada do usuário  
         - R: Fail Fast
+        
+06.         
         
 06. Agregamos propriedade Price na Entidade
     - Fazemos uma introdução sobre Notification Pattern: Na primeira requisição o usuário precisa saber todas as falhas que ocorreram.
