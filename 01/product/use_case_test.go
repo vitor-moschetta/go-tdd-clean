@@ -17,5 +17,5 @@ func TestCreateProduct(t *testing.T) {
 	output := useCase.Create(input)
 
 	// Then | Assert
-	assert.True(t, output)
+	assert.Nil(t, output)
 }

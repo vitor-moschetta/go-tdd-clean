@@ -7,10 +7,11 @@ func NewProductUseCase() *ProductUseCase {
 	return &ProductUseCase{}
 }
 
-func (c *ProductUseCase) Create(input CreateProductInput) bool {
+func (c *ProductUseCase) Create(input CreateProductInput) (output error) {
 	// Validate input
-	if !input.Validate() {
-		return false
+	err := input.Validate()
+	if err != nil {
+		return err
 	}
 
 	// Create entity
@@ -18,5 +19,5 @@ func (c *ProductUseCase) Create(input CreateProductInput) bool {
 	// Save entity to storage
 
 	// Return result
-	return true
+	return nil
 }

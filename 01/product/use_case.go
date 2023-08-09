@@ -7,6 +7,6 @@ func NewProductUseCase() *ProductUseCase {
 	return &ProductUseCase{}
 }
 
-func (c *ProductUseCase) Create(input CreateProductInput) bool {
-	return true
+func (c *ProductUseCase) Create(input CreateProductInput) (output error) {
+	return nil
 }
