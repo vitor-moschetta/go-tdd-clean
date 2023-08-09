@@ -1,6 +1,6 @@
 package category
 
-import "go-tdd-clean/09/shared"
+import "go-tdd-clean/10/shared"
 
 // ====================================== Command ======================================
 type CreateCategoryInput struct {

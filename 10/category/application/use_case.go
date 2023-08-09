@@ -1,8 +1,8 @@
 package category
 
 import (
-	category "go-tdd-clean/09/category/domain"
-	"go-tdd-clean/09/shared"
+	category "go-tdd-clean/10/category/domain"
+	"go-tdd-clean/10/shared"
 	"log"
 )
 

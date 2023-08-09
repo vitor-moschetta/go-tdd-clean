@@ -1,7 +1,7 @@
 package category
 
 import (
-	"go-tdd-clean/09/shared"
+	"go-tdd-clean/10/shared"
 	"time"
 
 	"github.com/google/uuid"

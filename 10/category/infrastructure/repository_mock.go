@@ -1,6 +1,6 @@
 package category
 
-import category "go-tdd-clean/09/category/domain"
+import category "go-tdd-clean/10/category/domain"
 
 type CategoryRepositoryFake struct {
 	storage []category.Category
