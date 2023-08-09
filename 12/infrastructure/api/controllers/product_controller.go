@@ -62,3 +62,19 @@ func (c *ProductController) Get(w http.ResponseWriter, r *http.Request) (err err
 
 	return web.EncodeJSON(w, response, response.StatusCode)
 }
+
+func (c *ProductController) GetErrorTest(w http.ResponseWriter, r *http.Request) (err error) {
+	return &CustomError{
+		Code:    1,
+		Message: "Error test",
+	}
+}
+
+type CustomError struct {
+	Code    int    `json:"code"`
+	Message string `json:"message"`
+}
+
+func (e *CustomError) Error() string {
+	return e.Message
+}

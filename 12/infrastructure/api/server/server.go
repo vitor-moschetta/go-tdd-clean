@@ -40,6 +40,8 @@ func Run() error {
 		),
 	)
 
+	app.Router.ErrorHandler(controllers.ErrorHandler)
+
 	productRepository := mock.NewProductRepositoryFake()
 	productRepository.Seed()
 	productUseCase := product.NewProductUseCase(productRepository)
@@ -48,6 +50,7 @@ func Run() error {
 	v1 := app.Router.Group("/api/v1")
 	v1.Post("/products", productController.Post)
 	v1.Get("/products", productController.Get)
+	v1.Get("/error", productController.GetErrorTest)
 
 	return app.Run()
 }
