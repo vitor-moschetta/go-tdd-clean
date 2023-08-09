@@ -4,10 +4,11 @@ Desenvolvimento orientado a testes (TDD) com Casos de uso (UseCase - Clean Archi
 
 01. Input basico e UseCase basico retornando error
 02. Input com Validação
-03. Agrega Entidade e Interface do Repositorio
+03. Agrega Entidade, Interface de Repositorio e Repositorio em Memoria
     - Acoplamento, injeção de dependencia e inversão de controle
     - Erro por falta de implementação do repositorio
-04. Agregamos um Repositorio em Memoria (repository mock)
+    - Injeta o repositorio no caso de uso
+04. 
 05. Agregamos Validação de Entidade. Aqui podemos falar sobre validação de entidade e validação de input
     - Porque não validamos somente a entidade?
         Resposta: Porque a entidade pode conter regras internas, e o input é mais específico para a validação dos dados de entrada do usuário

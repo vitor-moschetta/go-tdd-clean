@@ -7,12 +7,12 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestCreateProduct_ValidInput(t *testing.T) {
+func TestCreateProduct_DI(t *testing.T) {
 	// When | Arrange
 	input := CreateProductInput{
 		Name: "Product 1",
 	}
-	useCase := NewProductUseCase()
+	useCase := NewProductUseCase(nil)
 
 	defer func() {
 		if r := recover(); r != nil {
@@ -28,7 +28,22 @@ func TestCreateProduct_ValidInput(t *testing.T) {
 	output := useCase.Create(input)
 
 	// Then | Assert
-	assert.NotNil(t, output)
+	assert.Nil(t, output)
+}
+
+func TestCreateProduct_ValidInput(t *testing.T) {
+	// When | Arrange
+	input := CreateProductInput{
+		Name: "Product 1",
+	}
+	repository := NewProductRepositoryFake()
+	useCase := NewProductUseCase(repository)
+
+	// Given | Act
+	output := useCase.Create(input)
+
+	// Then | Assert
+	assert.Nil(t, output)
 }
 
 func TestCreateProduct_InvalidInput(t *testing.T) {
@@ -36,7 +51,7 @@ func TestCreateProduct_InvalidInput(t *testing.T) {
 	input := CreateProductInput{
 		Name: "",
 	}
-	useCase := NewProductUseCase()
+	useCase := NewProductUseCase(nil)
 
 	// Given | Act
 	output := useCase.Create(input)

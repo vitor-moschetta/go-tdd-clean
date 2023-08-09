@@ -6,8 +6,10 @@ type ProductUseCase struct {
 	Repository IProductRepository
 }
 
-func NewProductUseCase() *ProductUseCase {
-	return &ProductUseCase{}
+func NewProductUseCase(repository IProductRepository) *ProductUseCase {
+	return &ProductUseCase{
+		Repository: repository,
+	}
 }
 
 func (c *ProductUseCase) Create(input CreateProductInput) error {
