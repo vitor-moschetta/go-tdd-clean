@@ -2,17 +2,29 @@
 
 Desenvolvimento orientado a testes (TDD) com Casos de uso (UseCase - Clean Architecture) bem definidos.
 
-01. Input basico e UseCase basico retornando error
-02. Input com Validação
-03. Agrega Entidade, Interface de Repositorio e Repositorio em Memoria
-    - Acoplamento, injeção de dependencia e inversão de controle
-    - Erro por falta de implementação do repositorio
-    - Injeta o repositorio no caso de uso
-04. 
-05. Agregamos Validação de Entidade. Aqui podemos falar sobre validação de entidade e validação de input
-    - Porque não validamos somente a entidade?
-        Resposta: Porque a entidade pode conter regras internas, e o input é mais específico para a validação dos dados de entrada do usuário
-    - Fail Fast
+01. Estrutura inicial
+    - Input basico 
+    - UseCase vazio, retornando (output) "error" 
+02. Validação de Input do Usuário
+03. Persistência de dados
+    Para persistir o dado precisamos:
+        - Enriquecer os dados (Entidade)
+        - Ter um local para armazenar os dados (Repositorio)
+            - Não queremos nos preocupar com a implementação do repositorio (inversão de controle)
+            - Não queremos nos preocupar com a instanciação do repositorio (injeção de dependencia)
+            - Queremos testar o caso de uso sem depender de um banco de dados (mock do repositorio)
+04. Notification Pattern
+    - Agregamos propriedade Price na Entidade e Input
+    - Como podemos notificar todos os erros de validação em uma única requisição?
+        - R: Adicionamos um "error" customizado nas validações
+05. Validação de Entidade
+    - Agregamos Data de Cadastro na Entidade
+    - Agregamos validação de Entidade
+    - Movemos a criação e validação da entidade para seu próprio contexto (DDD, entidades anemicas vs entidades ricas)
+    - Porque ainda temos que validar o input do usuário? Não poderíamos apenas validar a entidade?
+        - R: Porque a entidade pode conter regras internas, e o input é mais específico para a validação dos dados de entrada do usuário  
+        - R: Fail Fast
+        
 06. Agregamos propriedade Price na Entidade
     - Fazemos uma introdução sobre Notification Pattern: Na primeira requisição o usuário precisa saber todas as falhas que ocorreram.
 07. Agregamos Notification Pattern com Output do tipo []errors

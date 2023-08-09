@@ -1,6 +1,10 @@
 package product
 
-import "log"
+import (
+	"log"
+
+	"github.com/google/uuid"
+)
 
 type ProductUseCase struct {
 	Repository IProductRepository
@@ -21,6 +25,7 @@ func (c *ProductUseCase) Create(input CreateProductInput) error {
 
 	// create entity
 	entity := Product{
+		ID:   uuid.New().String(),
 		Name: input.Name,
 	}
 

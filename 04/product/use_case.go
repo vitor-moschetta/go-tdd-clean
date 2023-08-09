@@ -23,7 +23,8 @@ func (c *ProductUseCase) Create(input CreateProductInput) error {
 
 	// create entity
 	entity := Product{
-		Name: input.Name,
+		Name:  input.Name,
+		Price: input.Price,
 	}
 
 	// save entity to storage

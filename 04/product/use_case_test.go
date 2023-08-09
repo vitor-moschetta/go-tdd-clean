@@ -9,7 +9,8 @@ import (
 func TestCreateProduct_Success(t *testing.T) {
 	// When | Arrange
 	input := CreateProductInput{
-		Name: "Product 1",
+		Name:  "Product 1",
+		Price: 1000,
 	}
 	repository := NewProductRepositoryFake()
 	useCase := NewProductUseCase(repository)
@@ -24,7 +25,8 @@ func TestCreateProduct_Success(t *testing.T) {
 func TestCreateProduct_InvalidInput(t *testing.T) {
 	// When | Arrange
 	input := CreateProductInput{
-		Name: "",
+		Name:  "",
+		Price: 1000,
 	}
 	repository := NewProductRepositoryFake()
 	useCase := NewProductUseCase(repository)
@@ -35,4 +37,21 @@ func TestCreateProduct_InvalidInput(t *testing.T) {
 	// Then | Assert
 	assert.NotNil(t, output)
 	assert.Equal(t, "name is required", output.Error())
+}
+
+func TestCreateProduct_InvalidInput2(t *testing.T) {
+	// When | Arrange
+	input := CreateProductInput{
+		Name:  "",
+		Price: -1,
+	}
+	repository := NewProductRepositoryFake()
+	useCase := NewProductUseCase(repository)
+
+	// Given | Act
+	output := useCase.Create(input)
+
+	// Then | Assert
+	assert.NotNil(t, output)
+	assert.Equal(t, "name is required, price is required", output.Error())
 }

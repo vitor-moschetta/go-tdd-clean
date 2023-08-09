@@ -1,14 +1,20 @@
 package product
 
-import "errors"
-
 type CreateProductInput struct {
-	Name string
+	Name  string
+	Price float64
 }
 
 func (c *CreateProductInput) Validate() error {
+	err := new(Error)
 	if c.Name == "" {
-		return errors.New("name is required")
+		err.AddError("name is required")
+	}
+	if c.Price <= 0 {
+		err.AddError("price is required")
+	}
+	if err.Error() != "" {
+		return err
 	}
 	return nil
 }
