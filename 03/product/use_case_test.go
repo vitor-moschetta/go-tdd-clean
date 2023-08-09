@@ -14,7 +14,6 @@ func TestCreateProduct_ValidInput(t *testing.T) {
 	}
 	useCase := NewProductUseCase()
 
-	// Given | Act
 	defer func() {
 		if r := recover(); r != nil {
 			if err, ok := r.(runtime.Error); ok {
@@ -25,10 +24,11 @@ func TestCreateProduct_ValidInput(t *testing.T) {
 		}
 	}()
 
+	// Given | Act
 	output := useCase.Create(input)
 
 	// Then | Assert
-	assert.True(t, output)
+	assert.NotNil(t, output)
 }
 
 func TestCreateProduct_InvalidInput(t *testing.T) {
@@ -42,5 +42,6 @@ func TestCreateProduct_InvalidInput(t *testing.T) {
 	output := useCase.Create(input)
 
 	// Then | Assert
-	assert.False(t, output)
+	assert.NotNil(t, output)
+	assert.Equal(t, "name is required", output.Error())
 }
