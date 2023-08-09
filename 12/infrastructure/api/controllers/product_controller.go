@@ -31,9 +31,9 @@ func (c *ProductController) Post(w http.ResponseWriter, r *http.Request) (err er
 
 	input := productApplication.NewCreateProductInput(request.Name, request.Price)
 	output := c.UseCase.Create(input)
-	response = responses.OutputToResponse(output)
+	response = responses.BuildResponse(output, r)
 
-	return web.EncodeJSON(w, response, BuildHttpStatusCode(output, r.Method))
+	return web.EncodeJSON(w, response, response.StatusCode)
 }
 
 func (c *ProductController) Get(w http.ResponseWriter, r *http.Request) (err error) {
@@ -53,12 +53,12 @@ func (c *ProductController) Get(w http.ResponseWriter, r *http.Request) (err err
 
 	if input.MinPrice == 0 && input.MaxPrice == 0 {
 		output := c.UseCase.GetAll()
-		response := responses.OutputToResponse(output)
-		return web.EncodeJSON(w, response, BuildHttpStatusCode(output, r.Method))
+		response := responses.BuildResponse(output, r)
+		return web.EncodeJSON(w, response, response.StatusCode)
 	}
 
 	output := c.UseCase.GetByMinMaxPrice(input)
-	response := responses.OutputToResponse(output)
+	response := responses.BuildResponse(output, r)
 
-	return web.EncodeJSON(w, response, BuildHttpStatusCode(output, r.Method))
+	return web.EncodeJSON(w, response, response.StatusCode)
 }
