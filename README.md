@@ -4,16 +4,14 @@ Desenvolvimento orientado a testes (TDD) com Casos de uso (UseCase - Clean Archi
 
 01. Input basico e UseCase basico retornando error
 02. Input com Validação
-03. Agrega Entidade e Interface do Repositorio. 
-    - Acoplamento, injeção de dependencia e inversão de controle.
-    - Erro por falta de implementação do repositorio.
-04. Agregamos um Repositorio em Memoria (mock)
-    - Separamos camadas de domain e application
+03. Agrega Entidade e Interface do Repositorio
+    - Acoplamento, injeção de dependencia e inversão de controle
+    - Erro por falta de implementação do repositorio
+04. Agregamos um Repositorio em Memoria (repository mock)
 05. Agregamos Validação de Entidade. Aqui podemos falar sobre validação de entidade e validação de input
-    - Porque não validamos somente a entidade?         
-        - Porque precisamos fornecer feedback para o usuário sobre os seus dados de entrada (Isso dará abertura para entrarmos com o conceito de Notification Pattern)
-        - Porque a validação de entidade pode envolver regras mais complexas que a validação de input.
-        - Fail Fast
+    - Porque não validamos somente a entidade?
+        Resposta: Porque a entidade pode conter regras internas, e o input é mais específico para a validação dos dados de entrada do usuário
+    - Fail Fast
 06. Agregamos propriedade Price na Entidade
     - Fazemos uma introdução sobre Notification Pattern: Na primeira requisição o usuário precisa saber todas as falhas que ocorreram.
 07. Agregamos Notification Pattern com Output do tipo []errors

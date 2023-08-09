@@ -1,7 +1,7 @@
 package product
 
 import (
-	"go-tdd-clean/04/product/domain/mock"
+	"go-tdd-clean/04.2/product/domain/mock"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -10,7 +10,8 @@ import (
 func TestCreateProduct_Success(t *testing.T) {
 	// When | Arrange
 	input := CreateProductInput{
-		Name: "Product 1",
+		Name:  "Product 1",
+		Price: 1000,
 	}
 	repository := mock.NewProductRepositoryFake()
 	useCase := NewProductUseCase(repository)
@@ -36,4 +37,21 @@ func TestCreateProduct_InvalidInput(t *testing.T) {
 	// Then | Assert
 	assert.NotNil(t, output)
 	assert.Equal(t, "name is required", output.Error())
+}
+
+func TestCreateProduct_InvalidInput2(t *testing.T) {
+	// When | Arrange
+	input := CreateProductInput{
+		Name:  "",
+		Price: -1,
+	}
+	repository := mock.NewProductRepositoryFake()
+	useCase := NewProductUseCase(repository)
+
+	// Given | Act
+	output := useCase.Create(input)
+
+	// Then | Assert
+	assert.NotNil(t, output)
+	// assert.Equal(t, "name is required, price is required", output.Error()) // Error!!!
 }

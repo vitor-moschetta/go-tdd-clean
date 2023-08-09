@@ -1,15 +1,14 @@
 package product
 
 import (
-	product "go-tdd-clean/04/product/domain"
 	"log"
 )
 
 type ProductUseCase struct {
-	Repository product.IProductRepository
+	Repository IProductRepository
 }
 
-func NewProductUseCase(repository product.IProductRepository) *ProductUseCase {
+func NewProductUseCase(repository IProductRepository) *ProductUseCase {
 	return &ProductUseCase{
 		Repository: repository,
 	}
@@ -23,7 +22,7 @@ func (c *ProductUseCase) Create(input CreateProductInput) error {
 	}
 
 	// create entity
-	entity := product.Product{
+	entity := Product{
 		Name: input.Name,
 	}
 
