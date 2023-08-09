@@ -16,14 +16,13 @@ func TestCreateProduct_ValidInput(t *testing.T) {
 	useCase := NewProductUseCase(repository)
 
 	// Given | Act
-	output, err := useCase.Create(input)
+	output := useCase.Create(input)
 
 	// Then | Assert
-	assert.Nil(t, err)
 	assert.NotNil(t, output)
-	assert.NotNil(t, output.ID)
-	assert.Equal(t, input.Name, output.Name)
-	assert.Equal(t, input.Price, output.Price)
+	assert.Equal(t, DomainCodeSuccess, output.GetCode())
+	assert.Equal(t, input.Name, output.GetData().(Product).Name)
+	assert.Equal(t, input.Price, output.GetData().(Product).Price)
 }
 
 func TestCreateProduct_InvalidInput(t *testing.T) {
@@ -36,14 +35,10 @@ func TestCreateProduct_InvalidInput(t *testing.T) {
 	useCase := NewProductUseCase(repository)
 
 	// Given | Act
-	_, err := useCase.Create(input)
+	output := useCase.Create(input)
 
 	// Then | Assert
-	assert.NotNil(t, err)
-	assert.Equal(t, "name is required, price is required", err.Error())
+	assert.NotNil(t, output)
+	assert.Equal(t, DomainCodeInvalidInput, output.GetCode())
+	assert.Equal(t, "name is required, price is required", output.GetError())
 }
-
-// Problemas:
-// Como sei o tipo de erro que o domínio está retornando?
-// Sem saber o tipo de erro, como vou mapear o código HTTP correto (exemplo caso esteja usando API REST na minha infraestrutura)?
-// Não seria melhor retornar os erros em uma lista de erros?

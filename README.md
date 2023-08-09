@@ -25,8 +25,7 @@ Desenvolvimento orientado a testes (TDD) com Casos de uso (UseCase - Clean Archi
         - R: Porque a entidade pode conter regras internas, e o input é mais específico para a validação dos dados de entrada do usuário  
         - R: Fail Fast
 06. Exportar dados de dominio
-    - Agregar Output no UseCase (além do error) para retornar os dados de dominio (Entidade)
-    
+    - Agregar Output no UseCase (além do error) para retornar os dados de dominio (Entidade)    
 07. Exportar Codigos de dominio
     - Como a camada de apresentação poderá mapear e informar corretamente os erros que ocorreram no dominio?    
         - R: Criamos um output customizado (struct) para o dominio , com seus próprios códigos de erro
