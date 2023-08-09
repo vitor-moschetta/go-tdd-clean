@@ -34,8 +34,10 @@ Desenvolvimento orientado a testes (TDD) com Casos de uso (UseCase - Clean Archi
     - Agrega query interface repository
     - Agrega query repository mock
     - Agrega seed de dados
-
-12. Adicionar Entidade Category e relacionamento com Product
+09. Organização em contextos (bounded contexts)
+    - Aggregate Root
+    - Shared Context
+10. Outros conceitos importantes
     - Mediator
     - Unit of Work
     - Domain Events

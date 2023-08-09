@@ -1,6 +1,7 @@
 package shared
 
 import (
+	"errors"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -16,5 +17,5 @@ func TestOutput_SetInvalidDomainCode(t *testing.T) {
 	}()
 
 	output := Output{}
-	output.SetError(999, "error")
+	output.SetError(999, errors.New("error"))
 }
