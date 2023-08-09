@@ -21,7 +21,3 @@ func TestCreateProduct_ValidInput(t *testing.T) {
 	// Then | Assert
 	assert.Nil(t, output)
 }
-
-// Problema: como sei o tipo de erro que o use case retornou?
-// Sem saber o tipo de erro, como vou mapear o código HTTP correto (exemplo caso esteja usando API REST na minha infraestrutura)?
-// E se for necessário retornar mais informações de domínio?

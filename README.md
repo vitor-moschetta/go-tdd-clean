@@ -16,7 +16,7 @@ Desenvolvimento orientado a testes (TDD) com Casos de uso (UseCase - Clean Archi
 04. Notification Pattern
     - Agregamos propriedade Price na Entidade e Input
     - Como podemos notificar todos os erros de validação em uma única requisição?
-        - R: Adicionamos um "error" customizado nas validações
+        - R: Adicionamos um "error" customizado nas validações. Alternativas: []string, []error, struct output, etc..
 05. Validação de Entidade
     - Agregamos Data de Cadastro na Entidade
     - Agregamos validação de Entidade
@@ -24,15 +24,16 @@ Desenvolvimento orientado a testes (TDD) com Casos de uso (UseCase - Clean Archi
     - Porque ainda temos que validar o input do usuário? Não poderíamos apenas validar a entidade?
         - R: Porque a entidade pode conter regras internas, e o input é mais específico para a validação dos dados de entrada do usuário  
         - R: Fail Fast
-        
-06.         
-        
-06. Agregamos propriedade Price na Entidade
-    - Fazemos uma introdução sobre Notification Pattern: Na primeira requisição o usuário precisa saber todas as falhas que ocorreram.
-07. Agregamos Notification Pattern com Output do tipo []errors
+06. Exportar dados de dominio
+    - Agregar Output no UseCase (além do error) para retornar os dados de dominio (Entidade)
+    
+07. Exportar Codigos de dominio
+    - Como a camada de apresentação poderá mapear e informar corretamente os erros que ocorreram no dominio?    
+        - R: Criamos um output customizado (struct) para o dominio , com seus próprios códigos de erro
+
 08. Agregamos Notification Pattern com Output do tipo struct
     - Encapsulamento: usar apenas codigos de domínio válidos
-09. Piramide de testes: Testes de unidade e testes de fluxo de caso de uso
+
 10. Organização para test coverage
     go test ./... -coverprofile=coverage.out
     go tool cover -html=coverage.out

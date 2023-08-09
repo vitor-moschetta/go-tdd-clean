@@ -13,27 +13,33 @@ type Product struct {
 	CreatedAt string
 }
 
-func NewProduct(name string, price float64) Product {
-	return Product{
+func NewProduct(name string, price float64) (Product, error) {
+	product := Product{
 		ID:        uuid.New().String(),
 		Name:      name,
 		Price:     price,
 		CreatedAt: time.Now().Format(time.RFC3339), // 2021-01-01 00:00:00
 	}
+	err := product.validate()
+	return product, err
 }
 
-func (p *Product) Validate() bool {
+func (p *Product) validate() error {
+	err := new(Error)
 	if p.Name == "" {
-		return false
+		err.AddError("name is required")
 	}
 	if p.Price <= 0 {
-		return false
+		err.AddError("price is required")
 	}
 	if p.ID == "" {
-		return false
+		err.AddError("id is required")
 	}
 	if p.CreatedAt == "" {
-		return false
+		err.AddError("created_at is required")
 	}
-	return true
+	if err.Error() != "" {
+		return err
+	}
+	return nil
 }
