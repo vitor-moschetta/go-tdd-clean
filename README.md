@@ -38,12 +38,14 @@ Desenvolvimento orientado a testes (TDD) com Casos de uso (UseCase - Clean Archi
     - Adiciona novo contexto (Category)    
     - Shared Context
 10. UseCase chamando outro UseCase. UseCase de uma entidade chamando Repository de outra entidade.
-    - UseCase de cadastro de produto chama UseCase de cadastro de categoria (Mediator Pattern)
-    - UseCase de cadastro de produto chama Repository de categoria (Mediator Pattern)
-11. Outros conceitos importantes
-    - Unit of Work
-    - Domain Events
-99. Adiciona Infraestrutura Web (API REST)
+    - Mediador (Mediator Pattern)
+    - Repositórios centralizados (Container de Repositórios)
+50. Adiciona Infraestrutura Web (API REST)
+
+### Outros assuntos importantes
+- Unit of Work
+- Domain Events
+
 
 ## Postman
 O projeto 12 possui infraestrutura web (API REST) e pode ser testado com o Postman. A collection a ser importada está na pasta `postman`.

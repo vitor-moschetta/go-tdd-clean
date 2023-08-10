@@ -1,18 +1,21 @@
 package repository
 
 import (
-	category "go-tdd-clean/10/category/repository"
-	product "go-tdd-clean/10/product/repository"
+	category "go-tdd-clean/10/category"
+	product "go-tdd-clean/10/product"
 )
 
 type RepositoryContainer struct {
-	Product  product.IProductRepository
-	Category category.ICategoryRepository
+	ProductRepo  product.IProductRepository
+	CategoryRepo category.ICategoryRepository
 }
 
-func NewRepositoryContainer(product product.IProductRepository, category category.ICategoryRepository) *RepositoryContainer {
+func NewRepositoryContainer(
+	product product.IProductRepository,
+	category category.ICategoryRepository,
+) *RepositoryContainer {
 	return &RepositoryContainer{
-		Product:  product,
-		Category: category,
+		ProductRepo:  product,
+		CategoryRepo: category,
 	}
 }

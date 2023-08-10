@@ -2,22 +2,24 @@ package category
 
 import (
 	"errors"
+	"go-tdd-clean/10/category"
 	"go-tdd-clean/10/shared"
+	"go-tdd-clean/10/shared/repository"
 	"log"
 )
 
 type CreateCategoryUseCase struct {
-	repository ICategoryRepository
+	repository.RepositoryContainer
 }
 
-func NewCreateCategoryUseCase(repository ICategoryRepository) *CreateCategoryUseCase {
+func NewCreateCategoryUseCase(repoContainer *repository.RepositoryContainer) *CreateCategoryUseCase {
 	return &CreateCategoryUseCase{
-		repository: repository,
+		RepositoryContainer: *repoContainer,
 	}
 }
 
 func (p *CreateCategoryUseCase) Execute(in any) (output shared.Output) {
-	input, ok := in.(CreateCategoryInput)
+	input, ok := in.(category.CreateCategoryInput)
 	if !ok {
 		output.SetError(shared.DomainCodeInvalidInput, errors.New("invalid category input"))
 		return
@@ -31,7 +33,7 @@ func (p *CreateCategoryUseCase) Execute(in any) (output shared.Output) {
 	}
 
 	// create entity
-	entity, err := NewCategory(input.Name)
+	entity, err := category.NewCategory(input.Name)
 	if err != nil {
 		log.Println(err)
 		output.SetError(shared.DomainCodeInternalError, err)
@@ -39,7 +41,7 @@ func (p *CreateCategoryUseCase) Execute(in any) (output shared.Output) {
 	}
 
 	// save entity to storage
-	err = p.repository.Save(entity)
+	err = p.CategoryRepo.Save(entity)
 	if err != nil {
 		log.Println(err)
 		output.SetError(shared.DomainCodeInternalError, err)
@@ -52,16 +54,16 @@ func (p *CreateCategoryUseCase) Execute(in any) (output shared.Output) {
 }
 
 type GetCategoryByIDUseCase struct {
-	repository ICategoryRepository
+	repository.RepositoryContainer
 }
 
-func NewGetCategoryByIDUseCase(repository ICategoryRepository) *CreateCategoryUseCase {
+func NewGetCategoryByIDUseCase(repoContainer repository.RepositoryContainer) *CreateCategoryUseCase {
 	return &CreateCategoryUseCase{
-		repository: repository,
+		RepositoryContainer: repoContainer,
 	}
 }
 
-func (p *GetCategoryByIDUseCase) Execute(input GetCategoryByID) (output shared.Output) {
+func (p *GetCategoryByIDUseCase) Execute(input category.GetCategoryByID) (output shared.Output) {
 	// validate input (fail fast)
 	err := input.Validate()
 	if err != nil {
@@ -70,7 +72,7 @@ func (p *GetCategoryByIDUseCase) Execute(input GetCategoryByID) (output shared.O
 	}
 
 	// query entities
-	entity, err := p.repository.GetByID(input.ID)
+	entity, err := p.CategoryRepo.GetByID(input.ID)
 	if err != nil {
 		log.Println(err)
 		output.SetError(shared.DomainCodeInternalError, err)
