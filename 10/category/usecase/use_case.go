@@ -53,34 +53,3 @@ func (p *CreateCategoryUseCase) Execute(in any) (output shared.Output) {
 	output.SetOk(entity)
 	return
 }
-
-type GetCategoryByIDUseCase struct {
-	repository.RepositoryContainer
-}
-
-func NewGetCategoryByIDUseCase(repoContainer repository.RepositoryContainer) *CreateCategoryUseCase {
-	return &CreateCategoryUseCase{
-		RepositoryContainer: repoContainer,
-	}
-}
-
-func (p *GetCategoryByIDUseCase) Execute(input category.GetCategoryByID) (output shared.Output) {
-	// validate input (fail fast)
-	err := input.Validate()
-	if err != nil {
-		output.SetError(shared.DomainCodeInvalidInput, err)
-		return
-	}
-
-	// query entities
-	entity, err := p.CategoryRepo.GetByID(input.ID)
-	if err != nil {
-		log.Println(err)
-		output.SetError(shared.DomainCodeInternalError, err)
-		return
-	}
-
-	// return ok
-	output.SetOk(entity)
-	return
-}
