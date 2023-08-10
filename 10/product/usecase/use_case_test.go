@@ -1,9 +1,10 @@
 package product
 
 import (
-	category "go-tdd-clean/10/category"
+	category "go-tdd-clean/10/category/domain"
 	categoryUseCase "go-tdd-clean/10/category/usecase"
-	"go-tdd-clean/10/product"
+	product "go-tdd-clean/10/product/domain"
+
 	"go-tdd-clean/10/shared"
 	"go-tdd-clean/10/shared/repository"
 	"testing"

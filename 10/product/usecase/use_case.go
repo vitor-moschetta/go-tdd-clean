@@ -2,8 +2,8 @@ package product
 
 import (
 	"errors"
-	"go-tdd-clean/10/category"
-	"go-tdd-clean/10/product"
+	category "go-tdd-clean/10/category/domain"
+	product "go-tdd-clean/10/product/domain"
 	"go-tdd-clean/10/shared"
 	"go-tdd-clean/10/shared/repository"
 	"log"

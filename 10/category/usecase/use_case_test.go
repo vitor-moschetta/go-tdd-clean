@@ -1,7 +1,7 @@
 package category
 
 import (
-	"go-tdd-clean/10/category"
+	category "go-tdd-clean/10/category/domain"
 	"go-tdd-clean/10/shared"
 	"go-tdd-clean/10/shared/repository"
 	"testing"

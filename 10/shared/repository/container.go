@@ -1,8 +1,8 @@
 package repository
 
 import (
-	category "go-tdd-clean/10/category"
-	product "go-tdd-clean/10/product"
+	category "go-tdd-clean/10/category/domain"
+	product "go-tdd-clean/10/product/domain"
 )
 
 type RepositoryContainer struct {
