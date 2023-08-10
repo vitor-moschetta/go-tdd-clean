@@ -43,13 +43,3 @@ func (p *CreateCategoryUseCase) Execute(input CreateCategoryInput) (output share
 	output.SetOk(entity)
 	return
 }
-
-type GetCategoryByIDUseCase struct {
-	repository ICategoryRepository
-}
-
-func NewGetCategoryByIDUseCase(repository ICategoryRepository) *CreateCategoryUseCase {
-	return &CreateCategoryUseCase{
-		repository: repository,
-	}
-}

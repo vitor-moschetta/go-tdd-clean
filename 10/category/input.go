@@ -18,6 +18,7 @@ func (c *CreateCategoryInput) Validate() error {
 	return nil
 }
 
+// ====================================== Query ======================================
 type GetCategoryByID struct {
 	ID string
 }
