@@ -1,11 +1,13 @@
 package product
 
-import "go-tdd-clean/09/shared"
+import "go-tdd-clean/10/shared"
 
 // ====================================== Command ======================================
 type CreateProductInput struct {
-	Name  string
-	Price float64
+	Name         string
+	Price        float64
+	CategoryID   string
+	CategoryName string
 }
 
 func (c *CreateProductInput) Validate() error {
@@ -15,6 +17,12 @@ func (c *CreateProductInput) Validate() error {
 	}
 	if c.Price <= 0 {
 		err.AddError("price is required")
+	}
+	if c.CategoryID == "" {
+		err.AddError("category_id is required")
+	}
+	if c.CategoryName == "" {
+		err.AddError("category_name is required")
 	}
 	if err.Error() != "" {
 		return err

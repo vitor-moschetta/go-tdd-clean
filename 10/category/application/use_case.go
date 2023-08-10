@@ -1,22 +1,29 @@
 package category
 
 import (
+	"errors"
 	category "go-tdd-clean/10/category/domain"
 	"go-tdd-clean/10/shared"
 	"log"
 )
 
-type CategoryUseCase struct {
+type CreateCategoryUseCase struct {
 	repository category.ICategoryRepository
 }
 
-func NewCategoryUseCase(repository category.ICategoryRepository) *CategoryUseCase {
-	return &CategoryUseCase{
+func NewCreateCategoryUseCase(repository category.ICategoryRepository) *CreateCategoryUseCase {
+	return &CreateCategoryUseCase{
 		repository: repository,
 	}
 }
 
-func (p *CategoryUseCase) CreateCategory(input CreateCategoryInput) (output shared.Output) {
+func (p *CreateCategoryUseCase) Execute(in any) (output shared.Output) {
+	input, ok := in.(CreateCategoryInput)
+	if !ok {
+		output.SetError(shared.DomainCodeInvalidInput, errors.New("invalid category input"))
+		return
+	}
+
 	// validate input
 	err := input.Validate()
 	if err != nil {
@@ -45,7 +52,17 @@ func (p *CategoryUseCase) CreateCategory(input CreateCategoryInput) (output shar
 	return
 }
 
-func (p *CategoryUseCase) GetCategoryByID(input GetCategoryByID) (output shared.Output) {
+type GetCategoryByIDUseCase struct {
+	repository category.ICategoryRepository
+}
+
+func NewGetCategoryByIDUseCase(repository category.ICategoryRepository) *CreateCategoryUseCase {
+	return &CreateCategoryUseCase{
+		repository: repository,
+	}
+}
+
+func (p *GetCategoryByIDUseCase) Execute(input GetCategoryByID) (output shared.Output) {
 	// validate input (fail fast)
 	err := input.Validate()
 	if err != nil {

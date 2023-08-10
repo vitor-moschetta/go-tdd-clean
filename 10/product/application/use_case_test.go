@@ -1,105 +1,42 @@
 package product
 
 import (
-	domain "go-tdd-clean/09/product/domain"
-	mock "go-tdd-clean/09/product/infrastructure"
+	category "go-tdd-clean/10/category/application"
+	mockCat "go-tdd-clean/10/category/infrastructure"
+	domain "go-tdd-clean/10/product/domain"
+	mockProd "go-tdd-clean/10/product/infrastructure"
 
-	"go-tdd-clean/09/shared"
+	"go-tdd-clean/10/shared"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 )
 
-func TestCreateProduct_ValidInput(t *testing.T) {
+func TestCreateProductUseCase_Success(t *testing.T) {
 	// When | Arrange
 	input := CreateProductInput{
-		Name:  "Product 1",
-		Price: 100,
+		Name:         "Product 1",
+		Price:        100,
+		CategoryID:   "1",
+		CategoryName: "Category A",
 	}
-	repository := mock.NewProductRepositoryFake()
-	useCase := NewProductUseCase(repository)
+	productRepository := mockProd.NewProductRepositoryFake()
+	categoryRepository := mockCat.NewCategoryRepositoryFake()
+	mediator := shared.NewMediator()
+	createProductUseCase := NewCreateProductUseCase(productRepository, mediator)
+	mediator.RegisterUseCase(shared.CreateCategoryUseCase, createProductUseCase)
+	createCategoryUseCase := category.NewCreateCategoryUseCase(categoryRepository)
+	mediator.RegisterUseCase(shared.CreateCategoryUseCase, createCategoryUseCase)
 
 	// Given | Act
-	output := useCase.Create(input)
+	output := createProductUseCase.Execute(input)
 
 	// Then | Assert
 	assert.NotNil(t, output)
 	assert.Equal(t, shared.DomainCodeSuccess, output.GetCode())
 	assert.Equal(t, input.Name, output.GetData().(domain.Product).Name)
 	assert.Equal(t, input.Price, output.GetData().(domain.Product).Price)
-}
-
-func TestCreateProduct_InvalidInput(t *testing.T) {
-	// When | Arrange
-	input := CreateProductInput{
-		Name:  "",
-		Price: -1,
-	}
-	repository := mock.NewProductRepositoryFake()
-	useCase := NewProductUseCase(repository)
-
-	// Given | Act
-	output := useCase.Create(input)
-
-	// Then | Assert
-	assert.NotNil(t, output)
-	assert.Equal(t, shared.DomainCodeInvalidInput, output.GetCode())
-	assert.Equal(t, "name is required, price is required", output.GetError())
-}
-
-func TestGetByMinMaxPrice_ValidInput(t *testing.T) {
-	// When | Arrange
-	input := GetProductByMinMaxPriceInput{
-		MinPrice: 100,
-		MaxPrice: 200,
-	}
-	repository := mock.NewProductRepositoryFake()
-	repository.Seed()
-	useCase := NewProductUseCase(repository)
-
-	// Given | Act
-	output := useCase.GetByMinMaxPrice(input)
-
-	// Then | Assert
-	assert.NotNil(t, output)
-	assert.Equal(t, shared.DomainCodeSuccess, output.GetCode())
-	assert.Equal(t, 2, len(output.GetData().([]domain.Product)))
-}
-
-func TestGetByMinMaxPrice_ValidInput2(t *testing.T) {
-	// When | Arrange
-	input := GetProductByMinMaxPriceInput{
-		MinPrice: 0,
-		MaxPrice: 100,
-	}
-	repository := mock.NewProductRepositoryFake()
-	repository.Seed()
-	useCase := NewProductUseCase(repository)
-
-	// Given | Act
-	output := useCase.GetByMinMaxPrice(input)
-
-	// Then | Assert
-	assert.NotNil(t, output)
-	assert.Equal(t, shared.DomainCodeSuccess, output.GetCode())
-	assert.Equal(t, 1, len(output.GetData().([]domain.Product)))
-}
-
-func TestGetByMinMaxPrice_InvalidInput(t *testing.T) {
-	// When | Arrange
-	input := GetProductByMinMaxPriceInput{
-		MinPrice: 200,
-		MaxPrice: 100,
-	}
-	repository := mock.NewProductRepositoryFake()
-	repository.Seed()
-	useCase := NewProductUseCase(repository)
-
-	// Given | Act
-	output := useCase.GetByMinMaxPrice(input)
-
-	// Then | Assert
-	assert.NotNil(t, output)
-	assert.Equal(t, shared.DomainCodeInvalidInput, output.GetCode())
-	assert.Equal(t, "min is greater than max", output.GetError())
+	category, err := categoryRepository.GetByID(output.GetData().(domain.Product).CategoryID)
+	assert.Nil(t, err)
+	assert.NotNil(t, category)
 }

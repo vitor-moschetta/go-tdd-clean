@@ -37,10 +37,10 @@ Desenvolvimento orientado a testes (TDD) com Casos de uso (UseCase - Clean Archi
 09. Organização em contextos (bounded contexts)
     - Adiciona novo contexto (Category)    
     - Shared Context
-10.     
-    
-10. Outros conceitos importantes
-    - Mediator
+10. UseCase chamando outro UseCase
+    - UseCase de cadastro de produto chama UseCase de cadastro de categoria
+    - Mediator Pattern    
+11. Outros conceitos importantes
     - Unit of Work
     - Domain Events
 99. Adiciona Infraestrutura Web (API REST)

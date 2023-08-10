@@ -1,25 +1,27 @@
 package product
 
 import (
-	"go-tdd-clean/09/shared"
+	"go-tdd-clean/10/shared"
 	"time"
 
 	"github.com/google/uuid"
 )
 
 type Product struct {
-	ID        string
-	Name      string
-	Price     float64
-	CreatedAt string
+	ID         string
+	Name       string
+	Price      float64
+	CreatedAt  string
+	CategoryID string
 }
 
-func NewProduct(name string, price float64) (Product, error) {
+func NewProduct(name string, price float64, categoryID string) (Product, error) {
 	product := Product{
-		ID:        uuid.New().String(),
-		Name:      name,
-		Price:     price,
-		CreatedAt: time.Now().Format(time.RFC3339), // 2021-01-01 00:00:00
+		ID:         uuid.New().String(),
+		Name:       name,
+		Price:      price,
+		CategoryID: categoryID,
+		CreatedAt:  time.Now().Format(time.RFC3339), // 2021-01-01 00:00:00
 	}
 	err := product.validate()
 	return product, err
@@ -38,6 +40,9 @@ func (p *Product) validate() error {
 	}
 	if p.CreatedAt == "" {
 		err.AddError("created_at is required")
+	}
+	if p.CategoryID == "" {
+		err.AddError("category_id is required")
 	}
 	if err.Error() != "" {
 		return err

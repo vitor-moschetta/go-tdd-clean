@@ -1,7 +1,7 @@
 package product
 
 import (
-	domain "go-tdd-clean/09/product/domain"
+	domain "go-tdd-clean/10/product/domain"
 	"time"
 )
 
