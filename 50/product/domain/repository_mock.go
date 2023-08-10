@@ -20,6 +20,10 @@ func (r *ProductRepositoryInMemory) Save(p Product) error {
 	return nil
 }
 
+func (r *ProductRepositoryInMemory) GetAll() ([]Product, error) {
+	return r.storage, nil
+}
+
 func (r *ProductRepositoryInMemory) Query(fn func(Product) bool) ([]Product, error) {
 	result := []Product{}
 	for _, item := range r.storage {

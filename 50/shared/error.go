@@ -1,6 +1,8 @@
 package shared
 
-import "strings"
+import (
+	"strings"
+)
 
 type Error struct {
 	message []string

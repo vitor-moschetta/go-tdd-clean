@@ -1,4 +1,4 @@
-package category
+package usecase
 
 import (
 	category "go-tdd-clean/50/category/domain"

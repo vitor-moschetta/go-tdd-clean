@@ -1,4 +1,4 @@
-package category
+package usecase
 
 import "go-tdd-clean/50/shared"
 
