@@ -1,6 +1,7 @@
 package product
 
 import (
+	"errors"
 	"log"
 )
 
@@ -18,6 +19,17 @@ func (c *ProductUseCase) Execute(input CreateProductInput) (entity Product, err 
 	// validate input
 	err = input.Validate()
 	if err != nil {
+		return
+	}
+
+	// verify if product already exists
+	entity, err = c.Repository.GetByName(input.Name)
+	if err != nil {
+		log.Println(err)
+		return
+	}
+	if entity.ID != "" {
+		err = errors.New("product already exists")
 		return
 	}
 

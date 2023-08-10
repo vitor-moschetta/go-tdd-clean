@@ -1,7 +1,10 @@
 package product
 
 import (
+	"errors"
 	"log"
+
+	"github.com/google/uuid"
 )
 
 type ProductUseCase struct {
@@ -21,11 +24,20 @@ func (c *ProductUseCase) Execute(input CreateProductInput) error {
 		return err
 	}
 
-	// create entity
-	entity, err := NewProduct(input.Name, input.Price)
+	// verify if product already exists
+	entity, err := c.Repository.GetByName(input.Name)
 	if err != nil {
 		log.Println(err)
 		return err
+	}
+	if entity.ID != "" {
+		return errors.New("product already exists")
+	}
+
+	// create entity
+	entity = Product{
+		ID:   uuid.New().String(),
+		Name: input.Name,
 	}
 
 	// save entity to storage

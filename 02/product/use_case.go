@@ -14,6 +14,8 @@ func (c *ProductUseCase) Execute(input CreateProductInput) error {
 		return err
 	}
 
+	// verify if product already exists
+
 	// create entity
 
 	// save entity to storage

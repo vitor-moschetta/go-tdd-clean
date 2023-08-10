@@ -10,6 +10,7 @@ const (
 	DomainCodeInvalidEntity
 	DomainCodeInternalError
 	DomainCodeNotFound
+	DomainCodeAlreadyExists
 )
 
 // Deixamos as propriedades privadas, e só podemos acessá-las através dos métodos, o que nos permite controlar melhor o fluxo e a validação dos dados.
@@ -63,5 +64,6 @@ func isValidDomainCode(code DomainCode) bool {
 		code == DomainCodeInvalidInput ||
 		code == DomainCodeInvalidEntity ||
 		code == DomainCodeInternalError ||
-		code == DomainCodeNotFound
+		code == DomainCodeNotFound ||
+		code == DomainCodeAlreadyExists
 }

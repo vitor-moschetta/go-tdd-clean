@@ -22,8 +22,20 @@ func (c *ProductUseCase) Execute(input CreateProductInput) (output Output) {
 		return
 	}
 
+	// verify if product already exists
+	entity, err := c.Repository.GetByName(input.Name)
+	if err != nil {
+		log.Println(err)
+		output.SetError(DomainCodeInternalError, err)
+		return
+	}
+	if entity.ID != "" {
+		output.SetError(DomainCodeAlreadyExists, err)
+		return
+	}
+
 	// create entity
-	entity, err := NewProduct(input.Name, input.Price)
+	entity, err = NewProduct(input.Name, input.Price)
 	if err != nil {
 		log.Println(err)
 		output.SetError(DomainCodeInternalError, err)

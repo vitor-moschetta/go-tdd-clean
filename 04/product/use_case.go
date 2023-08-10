@@ -1,6 +1,7 @@
 package product
 
 import (
+	"errors"
 	"log"
 )
 
@@ -21,8 +22,18 @@ func (c *ProductUseCase) Execute(input CreateProductInput) error {
 		return err
 	}
 
+	// verify if product already exists
+	entity, err := c.Repository.GetByName(input.Name)
+	if err != nil {
+		log.Println(err)
+		return err
+	}
+	if entity.ID != "" {
+		return errors.New("product already exists")
+	}
+
 	// create entity
-	entity := Product{
+	entity = Product{
 		Name:  input.Name,
 		Price: input.Price,
 	}

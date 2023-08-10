@@ -60,3 +60,20 @@ func TestCreateProduct_InvalidInput(t *testing.T) {
 	assert.NotNil(t, output)
 	assert.Equal(t, "name is required", output.Error())
 }
+
+func TestCreateProduct_ExistingProduct(t *testing.T) {
+	// When | Arrange
+	input := CreateProductInput{
+		Name: "Product 1",
+	}
+	repository := NewProductRepositoryInMemory()
+	useCase := NewProductUseCase(repository)
+
+	// Given | Act
+	output := useCase.Execute(input)
+	output = useCase.Execute(input)
+
+	// Then | Assert
+	assert.NotNil(t, output)
+	assert.Equal(t, "product already exists", output.Error())
+}

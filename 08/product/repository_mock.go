@@ -19,6 +19,15 @@ func (r *ProductRepositoryInMemory) Save(p Product) error {
 	return nil
 }
 
+func (r *ProductRepositoryInMemory) GetByName(name string) (Product, error) {
+	for _, item := range r.storage {
+		if item.Name == name {
+			return item, nil
+		}
+	}
+	return Product{}, nil
+}
+
 func (r *ProductRepositoryInMemory) Query(fn func(Product) bool) ([]Product, error) {
 	result := []Product{}
 	for _, item := range r.storage {
