@@ -1,9 +1,6 @@
 package product
 
 import (
-	domain "go-tdd-clean/09/product/domain"
-	mock "go-tdd-clean/09/product/infrastructure"
-
 	"go-tdd-clean/09/shared"
 	"testing"
 
@@ -16,17 +13,17 @@ func TestCreateProduct_ValidInput(t *testing.T) {
 		Name:  "Product 1",
 		Price: 100,
 	}
-	repository := mock.NewProductRepositoryFake()
-	useCase := NewProductUseCase(repository)
+	repository := NewProductRepositoryInMemory()
+	useCase := NewCreateProductUseCase(repository)
 
 	// Given | Act
-	output := useCase.Create(input)
+	output := useCase.Execute(input)
 
 	// Then | Assert
 	assert.NotNil(t, output)
 	assert.Equal(t, shared.DomainCodeSuccess, output.GetCode())
-	assert.Equal(t, input.Name, output.GetData().(domain.Product).Name)
-	assert.Equal(t, input.Price, output.GetData().(domain.Product).Price)
+	assert.Equal(t, input.Name, output.GetData().(Product).Name)
+	assert.Equal(t, input.Price, output.GetData().(Product).Price)
 }
 
 func TestCreateProduct_InvalidInput(t *testing.T) {
@@ -35,11 +32,11 @@ func TestCreateProduct_InvalidInput(t *testing.T) {
 		Name:  "",
 		Price: -1,
 	}
-	repository := mock.NewProductRepositoryFake()
-	useCase := NewProductUseCase(repository)
+	repository := NewProductRepositoryInMemory()
+	useCase := NewCreateProductUseCase(repository)
 
 	// Given | Act
-	output := useCase.Create(input)
+	output := useCase.Execute(input)
 
 	// Then | Assert
 	assert.NotNil(t, output)
@@ -53,17 +50,17 @@ func TestGetByMinMaxPrice_ValidInput(t *testing.T) {
 		MinPrice: 100,
 		MaxPrice: 200,
 	}
-	repository := mock.NewProductRepositoryFake()
+	repository := NewProductRepositoryInMemory()
 	repository.Seed()
-	useCase := NewProductUseCase(repository)
+	useCase := NewGetProductByMinMaxPriceUseCase(repository)
 
 	// Given | Act
-	output := useCase.GetByMinMaxPrice(input)
+	output := useCase.Execute(input)
 
 	// Then | Assert
 	assert.NotNil(t, output)
 	assert.Equal(t, shared.DomainCodeSuccess, output.GetCode())
-	assert.Equal(t, 2, len(output.GetData().([]domain.Product)))
+	assert.Equal(t, 2, len(output.GetData().([]Product)))
 }
 
 func TestGetByMinMaxPrice_ValidInput2(t *testing.T) {
@@ -72,17 +69,17 @@ func TestGetByMinMaxPrice_ValidInput2(t *testing.T) {
 		MinPrice: 0,
 		MaxPrice: 100,
 	}
-	repository := mock.NewProductRepositoryFake()
+	repository := NewProductRepositoryInMemory()
 	repository.Seed()
-	useCase := NewProductUseCase(repository)
+	useCase := NewGetProductByMinMaxPriceUseCase(repository)
 
 	// Given | Act
-	output := useCase.GetByMinMaxPrice(input)
+	output := useCase.Execute(input)
 
 	// Then | Assert
 	assert.NotNil(t, output)
 	assert.Equal(t, shared.DomainCodeSuccess, output.GetCode())
-	assert.Equal(t, 1, len(output.GetData().([]domain.Product)))
+	assert.Equal(t, 1, len(output.GetData().([]Product)))
 }
 
 func TestGetByMinMaxPrice_InvalidInput(t *testing.T) {
@@ -91,12 +88,12 @@ func TestGetByMinMaxPrice_InvalidInput(t *testing.T) {
 		MinPrice: 200,
 		MaxPrice: 100,
 	}
-	repository := mock.NewProductRepositoryFake()
+	repository := NewProductRepositoryInMemory()
 	repository.Seed()
-	useCase := NewProductUseCase(repository)
+	useCase := NewGetProductByMinMaxPriceUseCase(repository)
 
 	// Given | Act
-	output := useCase.GetByMinMaxPrice(input)
+	output := useCase.Execute(input)
 
 	// Then | Assert
 	assert.NotNil(t, output)

@@ -1,28 +1,26 @@
 package product
 
 import (
-	domain "go-tdd-clean/09/product/domain"
 	"time"
 )
 
-type ProductRepositoryFake struct {
-	storage []domain.Product
-	err     error
+type ProductRepositoryInMemory struct {
+	storage []Product
 }
 
-func NewProductRepositoryFake() *ProductRepositoryFake {
-	return &ProductRepositoryFake{
-		storage: []domain.Product{},
+func NewProductRepositoryInMemory() *ProductRepositoryInMemory {
+	return &ProductRepositoryInMemory{
+		storage: []Product{},
 	}
 }
 
-func (r *ProductRepositoryFake) Save(p domain.Product) error {
+func (r *ProductRepositoryInMemory) Save(p Product) error {
 	r.storage = append(r.storage, p)
 	return nil
 }
 
-func (r *ProductRepositoryFake) Query(fn func(domain.Product) bool) ([]domain.Product, error) {
-	result := []domain.Product{}
+func (r *ProductRepositoryInMemory) Query(fn func(Product) bool) ([]Product, error) {
+	result := []Product{}
 	for _, item := range r.storage {
 		if fn(item) {
 			result = append(result, item)
@@ -31,8 +29,8 @@ func (r *ProductRepositoryFake) Query(fn func(domain.Product) bool) ([]domain.Pr
 	return result, nil
 }
 
-func (r *ProductRepositoryFake) Seed() {
-	r.storage = []domain.Product{
+func (r *ProductRepositoryInMemory) Seed() {
+	r.storage = []Product{
 		{
 			ID:        "1",
 			Name:      "Product 1",

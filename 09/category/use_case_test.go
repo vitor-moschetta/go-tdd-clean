@@ -1,7 +1,6 @@
 package category
 
 import (
-	mock "go-tdd-clean/09/category/infrastructure"
 	"go-tdd-clean/09/shared"
 	"testing"
 
@@ -13,11 +12,11 @@ func TestCreateProduct_ValidInput(t *testing.T) {
 	input := CreateCategoryInput{
 		Name: "Category A",
 	}
-	repository := mock.NewCategoryRepositoryFake()
-	useCase := NewCategoryUseCase(repository)
+	repository := NewCategoryRepositoryInMemory()
+	useCase := NewCreateCategoryUseCase(repository)
 
 	// Given | Act
-	output := useCase.CreateCategory(input)
+	output := useCase.Execute(input)
 
 	// Then | Assert
 	assert.NotNil(t, output)
