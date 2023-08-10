@@ -34,17 +34,31 @@ Desenvolvimento orientado a testes (TDD) com Casos de uso (UseCase - Clean Archi
     - Agrega query interface repository
     - Agrega query repository mock
     - Agrega seed de dados
-09. Organização em contextos (bounded contexts)
-    - Adiciona novo contexto (Category)    
-    - Shared Context
-10. UseCase chamando outro UseCase. UseCase de uma entidade chamando Repository de outra entidade.
-    - Mediador (Mediator Pattern)
-    - Repositórios centralizados (Container de Repositórios)
-50. Adiciona Infraestrutura Web (API REST)
+20. Adiciona Infraestrutura Web (API REST)
 
-### Outros assuntos importantes
-- Unit of Work
-- Domain Events
+### Outros temas de domínio a serem abordados
+- Comunicação entre casos de uso (Mediator)
+- Container de acesso aos repositórios (Repository Manager)
+- Agrupar transações de escrita em uma única transação (Unit of Work)
+- Eventos de Domínio (Domain Events)
+
+### Outros temas de infraestrutura a serem abordados
+- Versionamento de API
+- Logging
+- Error Handling
+- Middlewares
+- Hooks
+- Cache
+    - In-Memory
+    - Distributed
+- Tracing   
+- Timeout e Retries
+- Health Check
+- Rate Limit
+- Circuit Breaker
+- Testes de integração
+- Testes de carga
+- Documentação de API
 
 
 ## Postman
@@ -57,31 +71,64 @@ curl -X GET "http://localhost:8080/api/v1/products?min_price=0&max_price=200" -H
 
 ## Índice (ES)
 
-Desarrollo orientado a pruebas (TDD) con Casos de uso (UseCase - Clean Architecture) bien definidos.
+01. Estructura inicial
+    - Input basico 
+    - UseCase vacio, retornando (output) "error"
+02. Validación de Input del Usuario
+03. Persistencia de datos
+    Para persistir el dato necesitamos:
+        - Enriquecer los datos (Entidad)
+        - Tener un lugar para almacenar los datos (Repositorio)
+            - No queremos preocuparnos por la implementación del repositorio (inversión de control)
+            - No queremos preocuparnos por la instanciación del repositorio (inyección de dependencia)
+            - Queremos probar el caso de uso sin depender de una base de datos (mock del repositorio)
+04. Notification Pattern
+    - Agregamos propiedad Price en la Entidad y Input
+    - ¿Cómo podemos notificar todos los errores de validación en una única solicitud?
+        - R: Agregamos un "error" personalizado en las validaciones. Alternativas: []string, []error, struct output, etc..
+05. Validación de Entidad
+    - Agregamos Data de Cadastro en la Entidad
+    - Agregamos validación de Entidad
+    - Movemos la creación y validación de la entidad a su propio contexto (DDD, entidades anémicas vs entidades ricas, pruebas unitarias vs pruebas de flujo, pirámide de pruebas)
+    - ¿Por qué todavía tenemos que validar la entrada del usuario? ¿No podríamos simplemente validar la entidad?
+        - R: Porque la entidad puede contener reglas internas, y la entrada es más específica para la validación de los datos de entrada del usuario
+        - R: Fail Fast
+06. Exportar datos de dominio
+    - Agregar Output en UseCase (además del error) para devolver los datos de dominio (Entidad)
+07. Exportar Códigos de dominio
+    - ¿Cómo podrá la capa de presentación asignar e informar correctamente los errores que ocurrieron en el dominio?
+        - R: Creamos una salida personalizada (struct) para el dominio, con sus propios códigos de error
+08. Agregar nuevo caso de uso
+    - QueryInput para buscar productos por intervalo de precio
+    - Agrega consulta de interfaz de repositorio
+    - Agrega consulta de repositorio simulado
+    - Agrega seed de datos
+20. Agrega Infraestructura Web (API REST)
 
-01. Input básica y UseCase básico que devuelve true
-02. Input con validación
-03. Agrega Entidad e Interface del Repositorio.
-    - Acoplamiento, inyección de dependencia e inversión de control.
-    - Aquí dará error de referencia porque no tenemos una implementación del repositorio.
-04. Agregamos un Repositorio en Memoria (mock)
-    - Tendremos error de referencia circular entre el archivo de prueba y el archivo de mock. Necesario crear paquete para archivo de prueba.
-05. Agregamos Validación de Entidad. Aquí podemos hablar sobre validación de entidad y validación de input
-    - ¿Por qué no validamos solo la entidad?
-        - Porque necesitamos proporcionar comentarios al usuario sobre sus datos de entrada (Esto abrirá el concepto de Notification Pattern)
-        - Porque la validación de entidad puede implicar reglas más complejas que la validación de entrada.
-        - Fail Fast
-06. Agregamos propiedad Price en la Entidad
-    - Hacemos una introducción sobre Notification Pattern: En la primera solicitud, el usuario necesita saber todas las fallas que ocurrieron.
-07. Agregamos Notification Pattern con Output del tipo []errors
-08. Agregamos Notification Pattern con Output del tipo struct
-    - Encapsulamiento: usar solo códigos de dominio válidos
-09. Pirámide de pruebas: Pruebas de unidad y pruebas de flujo de caso de uso
-10. Organización para test coverage
-    go test ./... -coverprofile=coverage.out
-    go tool cover -html=coverage.out
-11. Agrega QueryInput para buscar productos por intervalo de precio
-12. Agrega Infraestructura Web (API REST)
+### Otros temas de dominio a abordar
+- Comunicación entre casos de uso (Mediator)
+- Contenedor de acceso a los repositorios (Repository Manager)
+- Agrupar transacciones de escritura en una única transacción (Unit of Work)
+- Eventos de Dominio (Domain Events)
+
+### Otros temas de infraestructura a abordar
+- Versionamiento de API
+- Logging
+- Error Handling
+- Middlewares
+- Hooks
+- Cache
+    - In-Memory
+    - Distributed
+- Tracing
+- Timeout y Retries
+- Health Check
+- Rate Limit
+- Circuit Breaker
+- Pruebas de integración
+- Pruebas de carga
+- Documentación de API
+    
 
 ## Postman (ES)
 El proyecto 12 tiene infraestructura web (API REST) y se puede probar con Postman. La colección a importar está en la carpeta `postman`.
