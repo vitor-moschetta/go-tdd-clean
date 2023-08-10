@@ -11,7 +11,7 @@ import (
 
 func TestCreateCategoryUseCase_Success(t *testing.T) {
 	// When | Arrange
-	input := category.CreateCategoryInput{
+	input := CreateCategoryInput{
 		Name: "Category A",
 	}
 	categoryRepo := category.NewCategoryRepositoryInMemory()

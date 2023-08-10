@@ -20,7 +20,7 @@ func NewCreateCategoryUseCase(repoContainer *repository.RepositoryContainer) *Cr
 }
 
 func (p *CreateCategoryUseCase) Execute(in any) (output shared.Output) {
-	input, ok := in.(category.CreateCategoryInput)
+	input, ok := in.(CreateCategoryInput)
 	if !ok {
 		output.SetError(shared.DomainCodeInvalidInput, errors.New("invalid category input"))
 		return

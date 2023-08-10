@@ -2,7 +2,8 @@ package product
 
 import (
 	"errors"
-	category "go-tdd-clean/10/category/domain"
+	categoryDomain "go-tdd-clean/10/category/domain"
+	categoryUseCase "go-tdd-clean/10/category/usecase"
 	product "go-tdd-clean/10/product/domain"
 	"go-tdd-clean/10/shared"
 	"go-tdd-clean/10/shared/repository"
@@ -23,7 +24,7 @@ func NewCreateProductUseCase(repository *repository.RepositoryContainer, mediato
 
 func (c *CreateProductUseCase) Execute(in any) (output shared.Output) {
 	// validate input
-	input, ok := in.(product.CreateProductInput)
+	input, ok := in.(CreateProductInput)
 	if !ok {
 		output.SetError(shared.DomainCodeInvalidInput, errors.New("invalid input"))
 		return
@@ -57,14 +58,14 @@ func (c *CreateProductUseCase) Execute(in any) (output shared.Output) {
 		return
 	}
 	if categoryEntity.ID == "" {
-		out := c.Mediator.Execute(shared.CreateCategoryUseCaseKey, category.CreateCategoryInput{
+		out := c.Mediator.Execute(shared.CreateCategoryUseCaseKey, categoryUseCase.CreateCategoryInput{
 			Name: input.CategoryName,
 		})
 		if out.GetCode() != shared.DomainCodeSuccess {
 			output.SetError(shared.DomainCodeInternalError, errors.New("category not found and could not be created"))
 			return
 		}
-		input.CategoryID = out.GetData().(category.Category).ID
+		input.CategoryID = out.GetData().(categoryDomain.Category).ID
 	}
 
 	// create entity
@@ -99,7 +100,7 @@ func NewGetProductByMinMaxPriceUseCase(repoContainer *repository.RepositoryConta
 }
 
 func (c *GetProductByMinMaxPriceUseCase) Execute(in any) (output shared.Output) {
-	input, ok := in.(product.GetProductByMinMaxPriceInput)
+	input, ok := in.(GetProductByMinMaxPriceInput)
 	if !ok {
 		output.SetError(shared.DomainCodeInvalidInput, errors.New("invalid input"))
 		return

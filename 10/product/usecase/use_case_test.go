@@ -14,7 +14,7 @@ import (
 
 func TestCreateProductUseCase_Success(t *testing.T) {
 	// When | Arrange
-	input := product.CreateProductInput{
+	input := CreateProductInput{
 		Name:         "Product 1",
 		Price:        100,
 		CategoryID:   "1",
