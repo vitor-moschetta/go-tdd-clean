@@ -12,7 +12,7 @@ func TestCreateProduct_ValidInput(t *testing.T) {
 		Name:  "Product 1",
 		Price: 100,
 	}
-	repository := NewProductRepositoryFake()
+	repository := NewProductRepositoryInMemory()
 	useCase := NewProductUseCase(repository)
 
 	// Given | Act
@@ -31,7 +31,7 @@ func TestCreateProduct_InvalidInput(t *testing.T) {
 		Name:  "",
 		Price: -1,
 	}
-	repository := NewProductRepositoryFake()
+	repository := NewProductRepositoryInMemory()
 	useCase := NewProductUseCase(repository)
 
 	// Given | Act
@@ -49,7 +49,7 @@ func TestGetByMinMaxPrice_ValidInput(t *testing.T) {
 		MinPrice: 100,
 		MaxPrice: 200,
 	}
-	repository := NewProductRepositoryFake()
+	repository := NewProductRepositoryInMemory()
 	repository.Seed()
 	useCase := NewProductUseCase(repository)
 
@@ -68,7 +68,7 @@ func TestGetByMinMaxPrice_ValidInput2(t *testing.T) {
 		MinPrice: 0,
 		MaxPrice: 100,
 	}
-	repository := NewProductRepositoryFake()
+	repository := NewProductRepositoryInMemory()
 	repository.Seed()
 	useCase := NewProductUseCase(repository)
 
@@ -87,7 +87,7 @@ func TestGetByMinMaxPrice_InvalidInput(t *testing.T) {
 		MinPrice: 200,
 		MaxPrice: 100,
 	}
-	repository := NewProductRepositoryFake()
+	repository := NewProductRepositoryInMemory()
 	repository.Seed()
 	useCase := NewProductUseCase(repository)
 

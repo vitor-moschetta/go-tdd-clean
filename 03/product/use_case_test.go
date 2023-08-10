@@ -36,7 +36,7 @@ func TestCreateProduct_ValidInput(t *testing.T) {
 	input := CreateProductInput{
 		Name: "Product 1",
 	}
-	repository := NewProductRepositoryFake()
+	repository := NewProductRepositoryInMemory()
 	useCase := NewProductUseCase(repository)
 
 	// Given | Act

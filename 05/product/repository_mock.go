@@ -1,16 +1,16 @@
 package product
 
-type ProductRepositoryFake struct {
+type ProductRepositoryInMemory struct {
 	storage []Product
 }
 
-func NewProductRepositoryFake() *ProductRepositoryFake {
-	return &ProductRepositoryFake{
+func NewProductRepositoryInMemory() *ProductRepositoryInMemory {
+	return &ProductRepositoryInMemory{
 		storage: []Product{},
 	}
 }
 
-func (r *ProductRepositoryFake) Save(p Product) error {
+func (r *ProductRepositoryInMemory) Save(p Product) error {
 	r.storage = append(r.storage, p)
 	return nil
 }

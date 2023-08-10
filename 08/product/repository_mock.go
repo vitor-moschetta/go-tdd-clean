@@ -4,22 +4,22 @@ import (
 	"time"
 )
 
-type ProductRepositoryFake struct {
+type ProductRepositoryInMemory struct {
 	storage []Product
 }
 
-func NewProductRepositoryFake() *ProductRepositoryFake {
-	return &ProductRepositoryFake{
+func NewProductRepositoryInMemory() *ProductRepositoryInMemory {
+	return &ProductRepositoryInMemory{
 		storage: []Product{},
 	}
 }
 
-func (r *ProductRepositoryFake) Save(p Product) error {
+func (r *ProductRepositoryInMemory) Save(p Product) error {
 	r.storage = append(r.storage, p)
 	return nil
 }
 
-func (r *ProductRepositoryFake) Query(fn func(Product) bool) ([]Product, error) {
+func (r *ProductRepositoryInMemory) Query(fn func(Product) bool) ([]Product, error) {
 	result := []Product{}
 	for _, item := range r.storage {
 		if fn(item) {
@@ -29,7 +29,7 @@ func (r *ProductRepositoryFake) Query(fn func(Product) bool) ([]Product, error) 
 	return result, nil
 }
 
-func (r *ProductRepositoryFake) Seed() {
+func (r *ProductRepositoryInMemory) Seed() {
 	r.storage = []Product{
 		{
 			ID:        "1",
