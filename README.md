@@ -42,8 +42,9 @@ Desenvolvimento orientado a testes (TDD) com Casos de uso (UseCase - Clean Archi
 - Agrupar transações de escrita em uma única transação (Unit of Work)
 - Eventos de Domínio (Domain Events)
 
-### Outros temas de infraestrutura a serem abordados
+### Outros temas de API a serem abordados
 - Versionamento de API
+- Pagination and Sorting
 - Logging
 - Error Handling
 - Middlewares
@@ -111,8 +112,9 @@ curl -X GET "http://localhost:8080/api/v1/products?min_price=0&max_price=200" -H
 - Agrupar transacciones de escritura en una única transacción (Unit of Work)
 - Eventos de Dominio (Domain Events)
 
-### Otros temas de infraestructura a abordar
+### Otros temas de API a abordar
 - Versionamiento de API
+- Paginación y ordenación
 - Logging
 - Error Handling
 - Middlewares
@@ -128,7 +130,7 @@ curl -X GET "http://localhost:8080/api/v1/products?min_price=0&max_price=200" -H
 - Pruebas de integración
 - Pruebas de carga
 - Documentación de API
-    
+
 
 ## Postman (ES)
 El proyecto 12 tiene infraestructura web (API REST) y se puede probar con Postman. La colección a importar está en la carpeta `postman`.
