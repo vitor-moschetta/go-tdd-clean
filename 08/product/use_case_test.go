@@ -13,10 +13,10 @@ func TestCreateProduct_ValidInput(t *testing.T) {
 		Price: 100,
 	}
 	repository := NewProductRepositoryInMemory()
-	useCase := NewProductUseCase(repository)
+	useCase := NewCreateProductUseCase(repository)
 
 	// Given | Act
-	output := useCase.Create(input)
+	output := useCase.Execute(input)
 
 	// Then | Assert
 	assert.NotNil(t, output)
@@ -32,10 +32,10 @@ func TestCreateProduct_InvalidInput(t *testing.T) {
 		Price: -1,
 	}
 	repository := NewProductRepositoryInMemory()
-	useCase := NewProductUseCase(repository)
+	useCase := NewCreateProductUseCase(repository)
 
 	// Given | Act
-	output := useCase.Create(input)
+	output := useCase.Execute(input)
 
 	// Then | Assert
 	assert.NotNil(t, output)
@@ -51,10 +51,10 @@ func TestGetByMinMaxPrice_ValidInput(t *testing.T) {
 	}
 	repository := NewProductRepositoryInMemory()
 	repository.Seed()
-	useCase := NewProductUseCase(repository)
+	useCase := NewGetProductByMinMaxPriceUseCase(repository)
 
 	// Given | Act
-	output := useCase.GetByMinMaxPrice(input)
+	output := useCase.Execute(input)
 
 	// Then | Assert
 	assert.NotNil(t, output)
@@ -70,10 +70,10 @@ func TestGetByMinMaxPrice_ValidInput2(t *testing.T) {
 	}
 	repository := NewProductRepositoryInMemory()
 	repository.Seed()
-	useCase := NewProductUseCase(repository)
+	useCase := NewGetProductByMinMaxPriceUseCase(repository)
 
 	// Given | Act
-	output := useCase.GetByMinMaxPrice(input)
+	output := useCase.Execute(input)
 
 	// Then | Assert
 	assert.NotNil(t, output)
@@ -89,10 +89,10 @@ func TestGetByMinMaxPrice_InvalidInput(t *testing.T) {
 	}
 	repository := NewProductRepositoryInMemory()
 	repository.Seed()
-	useCase := NewProductUseCase(repository)
+	useCase := NewGetProductByMinMaxPriceUseCase(repository)
 
 	// Given | Act
-	output := useCase.GetByMinMaxPrice(input)
+	output := useCase.Execute(input)
 
 	// Then | Assert
 	assert.NotNil(t, output)

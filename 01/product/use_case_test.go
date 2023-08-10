@@ -14,7 +14,7 @@ func TestCreateProduct(t *testing.T) {
 	useCase := NewProductUseCase()
 
 	// Given | Act
-	output := useCase.Create(input)
+	output := useCase.Execute(input)
 
 	// Then | Assert
 	assert.Nil(t, output)

@@ -16,7 +16,7 @@ func TestCreateProduct_ValidInput(t *testing.T) {
 	useCase := NewProductUseCase(repository)
 
 	// Given | Act
-	output := useCase.Create(input)
+	output := useCase.Execute(input)
 
 	// Then | Assert
 	assert.Nil(t, output)

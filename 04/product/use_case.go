@@ -14,7 +14,7 @@ func NewProductUseCase(repository IProductRepository) *ProductUseCase {
 	}
 }
 
-func (c *ProductUseCase) Create(input CreateProductInput) error {
+func (c *ProductUseCase) Execute(input CreateProductInput) error {
 	// validate input
 	err := input.Validate()
 	if err != nil {

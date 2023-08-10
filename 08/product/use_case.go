@@ -4,17 +4,17 @@ import (
 	"log"
 )
 
-type ProductUseCase struct {
+type CreateProductUseCase struct {
 	Repository IProductRepository
 }
 
-func NewProductUseCase(repository IProductRepository) *ProductUseCase {
-	return &ProductUseCase{
+func NewCreateProductUseCase(repository IProductRepository) *CreateProductUseCase {
+	return &CreateProductUseCase{
 		Repository: repository,
 	}
 }
 
-func (c *ProductUseCase) Create(input CreateProductInput) (output Output) {
+func (c *CreateProductUseCase) Execute(input CreateProductInput) (output Output) {
 	// validate input
 	err := input.Validate()
 	if err != nil {
@@ -43,7 +43,17 @@ func (c *ProductUseCase) Create(input CreateProductInput) (output Output) {
 	return
 }
 
-func (c *ProductUseCase) GetByMinMaxPrice(input GetProductByMinMaxPriceInput) (output Output) {
+type GetProductByMinMaxPrice struct {
+	Repository IProductRepository
+}
+
+func NewGetProductByMinMaxPriceUseCase(repository IProductRepository) *GetProductByMinMaxPrice {
+	return &GetProductByMinMaxPrice{
+		Repository: repository,
+	}
+}
+
+func (c *GetProductByMinMaxPrice) Execute(input GetProductByMinMaxPriceInput) (output Output) {
 	// validate input (fail fast)
 	err := input.Validate()
 	if err != nil {
