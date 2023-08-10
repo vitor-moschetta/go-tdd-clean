@@ -2,19 +2,17 @@ package product
 
 import (
 	"errors"
-	category "go-tdd-clean/10/category/application"
-	domainCategory "go-tdd-clean/10/category/domain"
-	domain "go-tdd-clean/10/product/domain"
+	"go-tdd-clean/10/category"
 	"go-tdd-clean/10/shared"
 	"log"
 )
 
 type CreateProductUseCase struct {
-	Repository domain.IProductRepository
+	Repository IProductRepository
 	shared.Mediator
 }
 
-func NewCreateProductUseCase(repository domain.IProductRepository, mediator *shared.Mediator) *CreateProductUseCase {
+func NewCreateProductUseCase(repository IProductRepository, mediator *shared.Mediator) *CreateProductUseCase {
 	return &CreateProductUseCase{
 		Repository: repository,
 		Mediator:   *mediator,
@@ -35,7 +33,7 @@ func (c *CreateProductUseCase) Execute(in any) (output shared.Output) {
 	}
 
 	// check if product already exists
-	fn := func(p domain.Product) bool {
+	fn := func(p Product) bool {
 		return p.Name == input.Name
 	}
 	entities, err := c.Repository.Query(fn)
@@ -50,7 +48,7 @@ func (c *CreateProductUseCase) Execute(in any) (output shared.Output) {
 	}
 
 	// check if category exists
-	fn = func(p domain.Product) bool {
+	fn = func(p Product) bool {
 		return p.CategoryID == input.CategoryID
 	}
 	entities, err = c.Repository.Query(fn)
@@ -60,18 +58,18 @@ func (c *CreateProductUseCase) Execute(in any) (output shared.Output) {
 		return
 	}
 	if entities == nil || len(entities) == 0 {
-		out := c.Mediator.Execute(shared.CreateCategoryUseCase, category.CreateCategoryInput{
+		out := c.Mediator.Execute(shared.CreateCategoryUseCaseKey, category.CreateCategoryInput{
 			Name: input.CategoryName,
 		})
 		if out.GetCode() != shared.DomainCodeSuccess {
 			output.SetError(shared.DomainCodeInternalError, errors.New("category not found and could not be created"))
 			return
 		}
-		input.CategoryID = out.GetData().(domainCategory.Category).ID
+		input.CategoryID = out.GetData().(category.Category).ID
 	}
 
 	// create entity
-	entity, err := domain.NewProduct(input.Name, input.Price, input.CategoryID)
+	entity, err := NewProduct(input.Name, input.Price, input.CategoryID)
 	if err != nil {
 		log.Println(err)
 		output.SetError(shared.DomainCodeInternalError, err)
@@ -92,7 +90,7 @@ func (c *CreateProductUseCase) Execute(in any) (output shared.Output) {
 }
 
 type GetProductByMinMaxPriceUseCase struct {
-	Repository domain.IProductRepository
+	Repository IProductRepository
 }
 
 func (c *GetProductByMinMaxPriceUseCase) Execute(input GetProductByMinMaxPriceInput) (output shared.Output) {
@@ -104,7 +102,7 @@ func (c *GetProductByMinMaxPriceUseCase) Execute(input GetProductByMinMaxPriceIn
 	}
 
 	// query entities
-	fn := func(p domain.Product) bool {
+	fn := func(p Product) bool {
 		return p.Price >= input.MinPrice && p.Price <= input.MaxPrice
 	}
 

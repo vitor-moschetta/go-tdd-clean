@@ -2,16 +2,15 @@ package category
 
 import (
 	"errors"
-	category "go-tdd-clean/10/category/domain"
 	"go-tdd-clean/10/shared"
 	"log"
 )
 
 type CreateCategoryUseCase struct {
-	repository category.ICategoryRepository
+	repository ICategoryRepository
 }
 
-func NewCreateCategoryUseCase(repository category.ICategoryRepository) *CreateCategoryUseCase {
+func NewCreateCategoryUseCase(repository ICategoryRepository) *CreateCategoryUseCase {
 	return &CreateCategoryUseCase{
 		repository: repository,
 	}
@@ -32,7 +31,7 @@ func (p *CreateCategoryUseCase) Execute(in any) (output shared.Output) {
 	}
 
 	// create entity
-	entity, err := category.NewCategory(input.Name)
+	entity, err := NewCategory(input.Name)
 	if err != nil {
 		log.Println(err)
 		output.SetError(shared.DomainCodeInternalError, err)
@@ -53,10 +52,10 @@ func (p *CreateCategoryUseCase) Execute(in any) (output shared.Output) {
 }
 
 type GetCategoryByIDUseCase struct {
-	repository category.ICategoryRepository
+	repository ICategoryRepository
 }
 
-func NewGetCategoryByIDUseCase(repository category.ICategoryRepository) *CreateCategoryUseCase {
+func NewGetCategoryByIDUseCase(repository ICategoryRepository) *CreateCategoryUseCase {
 	return &CreateCategoryUseCase{
 		repository: repository,
 	}

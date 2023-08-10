@@ -1,34 +1,24 @@
 package shared
 
-const (
-	CreateCategoryUseCase  = "CreateCategoryUseCase"
-	GetCategoryByIDUseCase = "GetCategoryByIDUseCase"
-)
-
-const (
-	CreateProductUseCase           = "CreateProductUseCase"
-	GetProductByMinMaxPriceUseCase = "GetProductByMinMaxPriceUseCase"
-)
-
 type Mediator struct {
-	useCases map[string]UseCase
+	useCases map[UseCaseKey]UseCase
 }
 
 func NewMediator() *Mediator {
 	return &Mediator{
-		useCases: make(map[string]UseCase),
+		useCases: make(map[UseCaseKey]UseCase),
 	}
 }
 
-func (m *Mediator) RegisterUseCase(name string, useCase UseCase) {
+func (m *Mediator) RegisterUseCase(name UseCaseKey, useCase UseCase) {
 	m.useCases[name] = useCase
 }
 
-func (m *Mediator) GetUseCase(name string) UseCase {
+func (m *Mediator) GetUseCase(name UseCaseKey) UseCase {
 	return m.useCases[name]
 }
 
-func (m *Mediator) Execute(name string, input interface{}) Output {
+func (m *Mediator) Execute(name UseCaseKey, input any) Output {
 	useCase := m.GetUseCase(name)
 	if useCase == nil {
 		panic("use case not found")

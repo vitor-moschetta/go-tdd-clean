@@ -1,11 +1,7 @@
 package product
 
 import (
-	category "go-tdd-clean/10/category/application"
-	mockCat "go-tdd-clean/10/category/infrastructure"
-	domain "go-tdd-clean/10/product/domain"
-	mockProd "go-tdd-clean/10/product/infrastructure"
-
+	"go-tdd-clean/10/category"
 	"go-tdd-clean/10/shared"
 	"testing"
 
@@ -20,13 +16,13 @@ func TestCreateProductUseCase_Success(t *testing.T) {
 		CategoryID:   "1",
 		CategoryName: "Category A",
 	}
-	productRepository := mockProd.NewProductRepositoryFake()
-	categoryRepository := mockCat.NewCategoryRepositoryFake()
+	productRepository := NewProductRepositoryInMemory()
+	categoryRepository := category.NewCategoryRepositoryInMemory()
 	mediator := shared.NewMediator()
 	createProductUseCase := NewCreateProductUseCase(productRepository, mediator)
-	mediator.RegisterUseCase(shared.CreateCategoryUseCase, createProductUseCase)
+	mediator.RegisterUseCase(shared.CreateProductUseCaseKey, createProductUseCase)
 	createCategoryUseCase := category.NewCreateCategoryUseCase(categoryRepository)
-	mediator.RegisterUseCase(shared.CreateCategoryUseCase, createCategoryUseCase)
+	mediator.RegisterUseCase(shared.CreateCategoryUseCaseKey, createCategoryUseCase)
 
 	// Given | Act
 	output := createProductUseCase.Execute(input)
@@ -34,9 +30,9 @@ func TestCreateProductUseCase_Success(t *testing.T) {
 	// Then | Assert
 	assert.NotNil(t, output)
 	assert.Equal(t, shared.DomainCodeSuccess, output.GetCode())
-	assert.Equal(t, input.Name, output.GetData().(domain.Product).Name)
-	assert.Equal(t, input.Price, output.GetData().(domain.Product).Price)
-	category, err := categoryRepository.GetByID(output.GetData().(domain.Product).CategoryID)
+	assert.Equal(t, input.Name, output.GetData().(Product).Name)
+	assert.Equal(t, input.Price, output.GetData().(Product).Price)
+	category, err := categoryRepository.GetByID(output.GetData().(Product).CategoryID)
 	assert.Nil(t, err)
 	assert.NotNil(t, category)
 }

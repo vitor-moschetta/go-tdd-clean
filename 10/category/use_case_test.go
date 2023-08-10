@@ -1,7 +1,6 @@
 package category
 
 import (
-	mock "go-tdd-clean/10/category/infrastructure"
 	"go-tdd-clean/10/shared"
 	"testing"
 
@@ -13,7 +12,7 @@ func TestCreateCategoryUseCase_Success(t *testing.T) {
 	input := CreateCategoryInput{
 		Name: "Category A",
 	}
-	repository := mock.NewCategoryRepositoryFake()
+	repository := NewCategoryRepositoryInMemory()
 	useCase := NewCreateCategoryUseCase(repository)
 
 	// Given | Act
