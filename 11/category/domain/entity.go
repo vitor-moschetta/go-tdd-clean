@@ -1,6 +1,7 @@
 package category
 
 import (
+	"go-tdd-clean/11/shared"
 	"time"
 
 	"github.com/google/uuid"
@@ -12,23 +13,29 @@ type Category struct {
 	CreatedAt string
 }
 
-func NewCategory(name string) Category {
-	return Category{
+func NewCategory(name string) (Category, error) {
+	category := Category{
 		ID:        uuid.New().String(),
 		Name:      name,
 		CreatedAt: time.Now().Format(time.RFC3339), // 2021-01-01 00:00:00
 	}
+	err := category.Validate()
+	return category, err
 }
 
-func (p *Category) Validate() (errs []string) {
+func (p *Category) Validate() error {
+	err := new(shared.Error)
 	if p.Name == "" {
-		errs = append(errs, "name is required")
+		err.AddError("name is required")
 	}
 	if p.ID == "" {
-		errs = append(errs, "id is required")
+		err.AddError("id is required")
 	}
 	if p.CreatedAt == "" {
-		errs = append(errs, "created_at is required")
+		err.AddError("created_at is required")
 	}
-	return errs
+	if err.Error() != "" {
+		return err
+	}
+	return nil
 }

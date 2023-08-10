@@ -1,39 +1,51 @@
 package product
 
 import (
+	"go-tdd-clean/11/shared"
 	"time"
 
 	"github.com/google/uuid"
 )
 
 type Product struct {
-	ID        string
-	Name      string
-	Price     float64
-	CreatedAt string
+	ID         string
+	Name       string
+	Price      float64
+	CreatedAt  string
+	CategoryID string
 }
 
-func NewProduct(name string, price float64) Product {
-	return Product{
-		ID:        uuid.New().String(),
-		Name:      name,
-		Price:     price,
-		CreatedAt: time.Now().Format(time.RFC3339), // 2021-01-01 00:00:00
+func NewProduct(name string, price float64, categoryID string) (Product, error) {
+	product := Product{
+		ID:         uuid.New().String(),
+		Name:       name,
+		Price:      price,
+		CategoryID: categoryID,
+		CreatedAt:  time.Now().Format(time.RFC3339), // 2021-01-01 00:00:00
 	}
+	err := product.validate()
+	return product, err
 }
 
-func (p *Product) Validate() (errs []string) {
+func (p *Product) validate() error {
+	err := new(shared.Error)
 	if p.Name == "" {
-		errs = append(errs, "name is required")
+		err.AddError("name is required")
 	}
 	if p.Price <= 0 {
-		errs = append(errs, "price must be greater than 0")
+		err.AddError("price is required")
 	}
 	if p.ID == "" {
-		errs = append(errs, "id is required")
+		err.AddError("id is required")
 	}
 	if p.CreatedAt == "" {
-		errs = append(errs, "created_at is required")
+		err.AddError("created_at is required")
 	}
-	return errs
+	if p.CategoryID == "" {
+		err.AddError("category_id is required")
+	}
+	if err.Error() != "" {
+		return err
+	}
+	return nil
 }
