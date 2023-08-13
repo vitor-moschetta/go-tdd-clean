@@ -23,7 +23,7 @@ func TestProductControllerSuite(t *testing.T) {
 }
 
 func (suite *ProductHandlerTest) SetupTest(app *fury.Application, useSeed bool) {
-	productRepo := product.NewProductRepositoryInMemory()
+	productRepo := product.NewInMemoryProductRepository()
 	if useSeed {
 		productRepo.Seed()
 	}

@@ -19,12 +19,12 @@ func Run() error {
 	app.Router.Use(web.AcceptJSON())
 	app.Router.Use(web.Panics())
 
-	productRepo := product.NewProductRepositoryInMemory()
+	productRepo := product.NewInMemoryProductRepository()
 	productRepo.Seed()
-	createProductUC := product.NewCreateProductUseCase(productRepo)
-	getProductByMinMaxPriceUC := product.NewGetProductByMinMaxPriceUseCase(productRepo)
+	createProductUseCase := product.NewCreateProductUseCase(productRepo)
+	getProductByMinMaxPriceUseCase := product.NewGetProductByMinMaxPriceUseCase(productRepo)
 
-	handler := NewProductHandler(createProductUC, getProductByMinMaxPriceUC)
+	handler := NewProductHandler(createProductUseCase, getProductByMinMaxPriceUseCase)
 
 	v1 := app.Router.Group("/api/v1")
 	v1.Post("/products", handler.Post)

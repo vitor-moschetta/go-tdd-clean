@@ -4,22 +4,22 @@ import (
 	"time"
 )
 
-type ProductRepositoryInMemory struct {
+type InMemoryProductRepository struct {
 	storage []Product
 }
 
-func NewProductRepositoryInMemory() *ProductRepositoryInMemory {
-	return &ProductRepositoryInMemory{
+func NewInMemoryProductRepository() *InMemoryProductRepository {
+	return &InMemoryProductRepository{
 		storage: []Product{},
 	}
 }
 
-func (r *ProductRepositoryInMemory) Save(p *Product) error {
+func (r *InMemoryProductRepository) Save(p *Product) error {
 	r.storage = append(r.storage, *p)
 	return nil
 }
 
-func (r *ProductRepositoryInMemory) GetByName(name string) (*Product, error) {
+func (r *InMemoryProductRepository) GetByName(name string) (*Product, error) {
 	for _, item := range r.storage {
 		if item.Name == name {
 			return &item, nil
@@ -28,7 +28,7 @@ func (r *ProductRepositoryInMemory) GetByName(name string) (*Product, error) {
 	return nil, nil
 }
 
-func (r *ProductRepositoryInMemory) Query(fn func(*Product) bool) (*[]Product, error) {
+func (r *InMemoryProductRepository) Query(fn func(*Product) bool) (*[]Product, error) {
 	result := []Product{}
 	for _, item := range r.storage {
 		if fn(&item) {
@@ -38,7 +38,7 @@ func (r *ProductRepositoryInMemory) Query(fn func(*Product) bool) (*[]Product, e
 	return &result, nil
 }
 
-func (r *ProductRepositoryInMemory) Seed() {
+func (r *InMemoryProductRepository) Seed() {
 	r.storage = []Product{
 		{
 			ID:        "1",

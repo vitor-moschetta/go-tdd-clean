@@ -64,7 +64,12 @@ Desenvolvimento orientado a testes (TDD) com Casos de uso (UseCase - Clean Archi
 
 
 ## Postman
-O projeto 12 possui infraestrutura web (API REST) e pode ser testado com o Postman. A collection a ser importada está na pasta `postman`.
+O projeto 20 possui infraestrutura web (API REST) e pode ser testado com o Postman. A collection a ser importada está na pasta `postman`.
+
+### Executar aplicação
+```bash
+go run 20/main.go
+```
 
 ```bash
 curl -X GET "http://localhost:8080/api/v1/products?min_price=0&max_price=200" -H "accept: application/json"
@@ -134,7 +139,13 @@ curl -X GET "http://localhost:8080/api/v1/products?min_price=0&max_price=200" -H
 
 
 ## Postman (ES)
-El proyecto 12 tiene infraestructura web (API REST) y se puede probar con Postman. La colección a importar está en la carpeta `postman`.
+
+El proyecto 20 tiene infraestructura web (API REST) y se puede probar con Postman. La colección a importar está en la carpeta `postman`.
+
+### Ejecutar aplicación
+```bash
+go run 20/main.go
+```
 
 ```bash
 curl -X GET "http://localhost:8080/api/v1/products?min_price=0&max_price=200" -H "accept: application/json"

@@ -12,7 +12,7 @@ func TestCreateProduct_ValidInput(t *testing.T) {
 		Name:  "Product 1",
 		Price: 100,
 	}
-	repository := NewProductRepositoryInMemory()
+	repository := NewInMemoryProductRepository()
 	useCase := NewProductUseCase(repository)
 
 	// Given | Act
@@ -32,7 +32,7 @@ func TestCreateProduct_InvalidInput(t *testing.T) {
 		Name:  "",
 		Price: -1,
 	}
-	repository := NewProductRepositoryInMemory()
+	repository := NewInMemoryProductRepository()
 	useCase := NewProductUseCase(repository)
 
 	// Given | Act
