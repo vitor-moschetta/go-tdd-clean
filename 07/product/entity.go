@@ -13,7 +13,7 @@ type Product struct {
 	CreatedAt string
 }
 
-func NewProduct(name string, price float64) (Product, error) {
+func NewProduct(name string, price float64) (*Product, error) {
 	product := Product{
 		ID:        uuid.New().String(),
 		Name:      name,
@@ -21,7 +21,7 @@ func NewProduct(name string, price float64) (Product, error) {
 		CreatedAt: time.Now().Format(time.RFC3339), // 2021-01-01 00:00:00
 	}
 	err := product.validate()
-	return product, err
+	return &product, err
 }
 
 func (p *Product) validate() error {

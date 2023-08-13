@@ -30,12 +30,12 @@ func (c *ProductUseCase) Execute(input CreateProductInput) error {
 		log.Println(err)
 		return err
 	}
-	if entity.ID != "" {
+	if entity != nil {
 		return errors.New("product already exists")
 	}
 
 	// create entity
-	entity = Product{
+	entity = &Product{
 		ID:   uuid.New().String(),
 		Name: input.Name,
 	}

@@ -10,16 +10,16 @@ import (
 )
 
 type ProductHandler struct {
-	CreateProduct           *product.CreateProductUseCase
-	GetProductByMinMaxPrice *product.GetProductByMinMaxPriceUseCase
+	CreateProductUseCase           *product.CreateProductUseCase
+	GetProductByMinMaxPriceUseCase *product.GetProductByMinMaxPriceUseCase
 }
 
 func NewProductHandler(
 	createProduct *product.CreateProductUseCase,
 	getProductByMinMaxPrice *product.GetProductByMinMaxPriceUseCase) *ProductHandler {
 	return &ProductHandler{
-		CreateProduct:           createProduct,
-		GetProductByMinMaxPrice: getProductByMinMaxPrice,
+		CreateProductUseCase:           createProduct,
+		GetProductByMinMaxPriceUseCase: getProductByMinMaxPrice,
 	}
 }
 
@@ -32,7 +32,7 @@ func (c *ProductHandler) Post(w http.ResponseWriter, r *http.Request) (err error
 	}
 
 	input := product.NewCreateProductInput(request.Name, request.Price)
-	output := c.CreateProduct.Execute(input)
+	output := c.CreateProductUseCase.Execute(input)
 	response = buildResponse(output, r)
 
 	return web.EncodeJSON(w, response, response.StatusCode)
@@ -58,7 +58,7 @@ func (c *ProductHandler) Get(w http.ResponseWriter, r *http.Request) (err error)
 		return web.EncodeJSON(w, "invalid query params", http.StatusBadRequest)
 	}
 
-	output := c.GetProductByMinMaxPrice.Execute(input)
+	output := c.GetProductByMinMaxPriceUseCase.Execute(input)
 	response := buildResponse(output, r)
 
 	return web.EncodeJSON(w, response, response.StatusCode)

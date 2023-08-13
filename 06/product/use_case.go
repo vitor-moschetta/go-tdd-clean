@@ -15,7 +15,7 @@ func NewProductUseCase(repository IProductRepository) *ProductUseCase {
 	}
 }
 
-func (c *ProductUseCase) Execute(input CreateProductInput) (entity Product, err error) {
+func (c *ProductUseCase) Execute(input CreateProductInput) (entity *Product, err error) {
 	// validate input
 	err = input.Validate()
 	if err != nil {
@@ -28,7 +28,7 @@ func (c *ProductUseCase) Execute(input CreateProductInput) (entity Product, err 
 		log.Println(err)
 		return
 	}
-	if entity.ID != "" {
+	if entity != nil {
 		err = errors.New("product already exists")
 		return
 	}

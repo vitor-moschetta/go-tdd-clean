@@ -1,6 +1,7 @@
 package product
 
 import (
+	"errors"
 	"log"
 )
 
@@ -29,7 +30,8 @@ func (c *ProductUseCase) Execute(input CreateProductInput) (output Output) {
 		output.SetError(DomainCodeInternalError, err)
 		return
 	}
-	if entity.ID != "" {
+	if entity != nil {
+		err = errors.New("product already exists")
 		output.SetError(DomainCodeAlreadyExists, err)
 		return
 	}
@@ -51,6 +53,6 @@ func (c *ProductUseCase) Execute(input CreateProductInput) (output Output) {
 	}
 
 	// return ok
-	output.SetOk(entity)
+	output.SetOk(*entity)
 	return
 }

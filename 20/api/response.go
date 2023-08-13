@@ -27,7 +27,7 @@ func buildHTTPStatusCode(output product.Output, verb string) int {
 		if verb == http.MethodPost {
 			return http.StatusCreated
 		}
-		if verb == http.MethodGet && (output.GetData() == nil || reflect.ValueOf(output.GetData()).IsNil()) {
+		if verb == http.MethodGet && (output.GetData() == nil || reflect.ValueOf(output.GetData()).IsNil()) || len(output.GetData().([]product.Product)) == 0 {
 			return http.StatusNoContent
 		}
 		return http.StatusOK

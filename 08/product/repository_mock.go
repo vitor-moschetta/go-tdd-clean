@@ -14,28 +14,28 @@ func NewProductRepositoryInMemory() *ProductRepositoryInMemory {
 	}
 }
 
-func (r *ProductRepositoryInMemory) Save(p Product) error {
-	r.storage = append(r.storage, p)
+func (r *ProductRepositoryInMemory) Save(p *Product) error {
+	r.storage = append(r.storage, *p)
 	return nil
 }
 
-func (r *ProductRepositoryInMemory) GetByName(name string) (Product, error) {
+func (r *ProductRepositoryInMemory) GetByName(name string) (*Product, error) {
 	for _, item := range r.storage {
 		if item.Name == name {
-			return item, nil
+			return &item, nil
 		}
 	}
-	return Product{}, nil
+	return nil, nil
 }
 
-func (r *ProductRepositoryInMemory) Query(fn func(Product) bool) ([]Product, error) {
+func (r *ProductRepositoryInMemory) Query(fn func(*Product) bool) (*[]Product, error) {
 	result := []Product{}
 	for _, item := range r.storage {
-		if fn(item) {
+		if fn(&item) {
 			result = append(result, item)
 		}
 	}
-	return result, nil
+	return &result, nil
 }
 
 func (r *ProductRepositoryInMemory) Seed() {

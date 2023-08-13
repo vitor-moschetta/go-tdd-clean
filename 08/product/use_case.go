@@ -29,7 +29,7 @@ func (c *CreateProductUseCase) Execute(input CreateProductInput) (output Output)
 		output.SetError(DomainCodeInternalError, err)
 		return
 	}
-	if entity.ID != "" {
+	if entity != nil {
 		output.SetError(DomainCodeAlreadyExists, err)
 		return
 	}
@@ -51,7 +51,7 @@ func (c *CreateProductUseCase) Execute(input CreateProductInput) (output Output)
 	}
 
 	// return ok
-	output.SetOk(entity)
+	output.SetOk(*entity)
 	return
 }
 
@@ -74,7 +74,7 @@ func (c *GetProductByMinMaxPrice) Execute(input GetProductByMinMaxPriceInput) (o
 	}
 
 	// query entities
-	fn := func(p Product) bool {
+	fn := func(p *Product) bool {
 		return p.Price >= input.MinPrice && p.Price <= input.MaxPrice
 	}
 
@@ -86,6 +86,6 @@ func (c *GetProductByMinMaxPrice) Execute(input GetProductByMinMaxPriceInput) (o
 	}
 
 	// return ok
-	output.SetOk(entities)
+	output.SetOk(*entities)
 	return
 }
